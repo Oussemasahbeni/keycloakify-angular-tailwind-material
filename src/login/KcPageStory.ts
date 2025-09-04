@@ -1,13 +1,14 @@
+import { provideHttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, Type } from '@angular/core';
 import { provideKeycloakifyAngular } from '@keycloakify/angular/login/providers/keycloakify-angular';
-import { TemplateComponent } from '@keycloakify/angular/login/template';
-import { getKcPage } from './KcPage';
-import { getI18n } from './i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import { createGetKcContextMock } from 'keycloakify/login/KcContext';
 import { kcEnvDefaults, themeNames } from '../kc.gen';
 import type { KcContextExtension, KcContextExtensionPerPage } from './KcContext';
-import { classes, doMakeUserConfirmPassword, doUseDefaultCss } from './KcPage';
+import { classes, doMakeUserConfirmPassword, doUseDefaultCss, getKcPage } from './KcPage';
+import { getI18n } from './i18n';
+import { provideIcons } from './icons/icons.provider';
+import { TemplateComponent } from './template/template.component';
 const kcContextExtension: KcContextExtension = {
   themeName: themeNames[0],
   properties: {
@@ -31,6 +32,8 @@ type StoryContextLike = {
 export const decorators = (_: unknown, context: StoryContextLike) => ({
   applicationConfig: {
     providers: [
+      provideIcons(),
+      provideHttpClient(),
       provideKeycloakifyAngular({
         doMakeUserConfirmPassword: doMakeUserConfirmPassword,
         doUseDefaultCss: doUseDefaultCss,
@@ -53,7 +56,6 @@ export const decorators = (_: unknown, context: StoryContextLike) => ({
       [userProfileFormFields]="userProfileFormFieldsComponent"
     ></kc-root>
   }`,
-  standalone: true,
   imports: [TemplateComponent],
 })
 export class KcPageStory implements OnInit {

@@ -1,0 +1,219 @@
+@let realm = kcContext.realm;
+@let usernameHidden = kcContext.usernameHidden;
+@let auth = kcContext.auth;
+@let messagesPerField = kcContext.messagesPerField;
+@let url = kcContext.url;
+@let login = kcContext.login;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight flex flex-col mb-3">
+    <span class="text-2xl font-extrabold">{{ i18n.msgStr('loginAccountTitle') }}</span>
+
+    <span class="text-sm text-gray-500 font-medium">
+      {{ i18n.msgStr('loginAccountSubtitle') }}
+    </span>
+    <hr class="my-2" />
+  </div>
+</ng-template>
+<ng-template #infoNode>
+  @let url = kcContext.url;
+  <div id="kc-registration-container">
+    <div
+      id="kc-registration"
+      class="text-start"
+    >
+      <span>
+        {{ i18n.msgStr('noAccount') }}
+        <a
+          tabindex="8"
+          class="font-bold! text-primary"
+          [href]="url?.registrationUrl"
+        >
+          {{ i18n.msgStr('doRegister') }}
+        </a>
+      </span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #socialProvidersNode>
+  @let realm = kcContext.realm;
+  @let social = kcContext.social;
+  @if (!!realm?.password && !!social?.providers?.length) {
+    <div id="kc-social-providers">
+      <div class="mt-4 flex items-center">
+        <div class="mt-px flex-auto border-t"></div>
+        <div class="text-secondary mx-2">{{ i18n.msgStr('identity-provider-login-label') }}</div>
+        <div class="mt-px flex-auto border-t"></div>
+      </div>
+      <ul
+        class="mt-4! grid gap-2 sm:grid-cols-1"
+        [class.sm:grid-cols-2]="(social?.providers?.length ?? 0) > 3"
+      >
+        @for (provider of social?.providers; track provider.alias; let idx = $index) {
+          <li>
+            <a
+              matButton="outlined"
+              [id]="provider.alias"
+              [href]="provider.loginUrl"
+              type="button"
+              class="flex items-center justify-center w-full"
+            >
+              @if (provider.iconClasses) {
+                <mat-icon [svgIcon]="'social:' + provider.providerId" />
+              }
+              <span [innerHTML]="provider.displayName | kcSanitize: 'html'"></span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</ng-template>
+<div id="kc-form">
+  <div id="kc-form-wrapper">
+    <!-- login.component.html -->
+    @if (realm?.password) {
+      <form
+        id="kc-form-login"
+        method="post"
+        class="space-y-2!"
+        [action]="url?.loginAction"
+        (onSubmit)="isLoginButtonDisabled.set(true)"
+      >
+        @if (!usernameHidden) {
+          <div>
+            <mat-form-field
+              appearance="outline"
+              class="w-full"
+            >
+              <mat-label for="username">
+                @if (!realm?.loginWithEmailAllowed) {
+                  {{ i18n.msgStr('username') }}
+                } @else if (!realm?.registrationEmailAsUsername) {
+                  {{ i18n.msgStr('usernameOrEmail') }}
+                } @else {
+                  {{ i18n.msgStr('email') }}
+                }
+              </mat-label>
+              <input
+                matInput
+                id="username"
+                name="username"
+                type="text"
+                tabindex="2"
+                autofocus
+                autocomplete="username"
+                [defaultValue]="login?.username || ''"
+                [attr.aria-invalid]="messagesPerField?.existsError('username', 'password')"
+              />
+              @if (messagesPerField?.existsError('username', 'password')) {
+                <mat-hint class="text-error">
+                  {{ messagesPerField.getFirstError('username', 'password') }}
+                </mat-hint>
+              }
+            </mat-form-field>
+          </div>
+        }
+
+        <div [kcClass]="'kcFormGroupClass'">
+          <mat-form-field
+            appearance="outline"
+            subscriptSizing="dynamic"
+            class="w-full"
+          >
+            <mat-label for="password">
+              {{ i18n.msgStr('password') }}
+            </mat-label>
+            <input
+              matInput
+              id="password"
+              name="password"
+              type="password"
+              tabindex="3"
+              autofocus
+              autocomplete="current-password"
+              #passwordField
+              [attr.aria-invalid]="messagesPerField?.existsError('username', 'password')"
+            />
+
+            <button
+              mat-icon-button
+              type="button"
+              class="mr-2!"
+              (click)="
+                passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
+              "
+              matSuffix
+            >
+              @if (passwordField.type === 'password') {
+                <mat-icon
+                  class="icon-size-5"
+                  [svgIcon]="'heroicons_solid:eye'"
+                ></mat-icon>
+              }
+              @if (passwordField.type === 'text') {
+                <mat-icon
+                  class="icon-size-5"
+                  [svgIcon]="'heroicons_solid:eye-slash'"
+                ></mat-icon>
+              }
+            </button>
+            @if (messagesPerField?.existsError('username', 'password')) {
+              <mat-hint class="text-error">
+                {{ messagesPerField.getFirstError('username', 'password') }}
+              </mat-hint>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="inline-flex w-full items-center justify-between">
+          @if (realm?.rememberMe && !usernameHidden) {
+            <mat-checkbox
+              class="-ml-2 flex items-center justify-center"
+              [color]="'primary'"
+              id="rememberMe"
+              name="rememberMe"
+              type="checkbox"
+              tabindex="5"
+              [checked]="!!login?.rememberMe"
+            >
+              <span class="mt-5! mb-0!">{{ i18n.msgStr('rememberMe') }}</span>
+            </mat-checkbox>
+          }
+
+          @if (realm?.resetPasswordAllowed) {
+            <a
+              tabindex="6"
+              class="text-md font-medium text-primary hover:underline"
+              [href]="url?.loginResetCredentialsUrl"
+              >{{ i18n.msgStr('doForgotPassword') }}
+            </a>
+          }
+        </div>
+
+        <div
+          id="kc-form-buttons"
+          [kcClass]="'kcFormGroupClass'"
+        >
+          <input
+            type="hidden"
+            id="id-hidden-input"
+            name="credentialId"
+            [value]="auth?.selectedCredential"
+          />
+          <button
+            name="login"
+            tabindex="7"
+            class="w-full"
+            type="submit"
+            id="kc-login"
+            matButton="filled"
+            [disabled]="isLoginButtonDisabled()"
+          >
+            {{ i18n.msgStr('doLogIn') }}
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

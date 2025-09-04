@@ -15,7 +15,11 @@
             "configFile": "vite.config.ts",
             "main": "src/main.ts",
             "outputPath": "dist",
-            "tsConfig": "tsconfig.app.json"
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "styles": [
+              "src/login/styles/index.scss"
+            ]
           },
           "defaultConfiguration": "production",
           "configurations": {
@@ -70,7 +74,6 @@
             "outputDir": "storybook-static"
           }
         }
-
       },
       "schematics": {
         "@schematics/angular:component": {
