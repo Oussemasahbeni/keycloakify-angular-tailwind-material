@@ -30,6 +30,8 @@ import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import { type ClassKey, getKcClsx } from 'keycloakify/login/lib/kcClsx';
 import type { Observable } from 'rxjs';
+import logoSrc from '../assets/images/logo/auth-logo.svg';
+import shapeSrc from '../assets/images/shape/grid-01.svg';
 import { AlertComponent } from '../components/alert/alert.component';
 import { ThemeToggleComponent } from '../components/theme-toggle/theme-toggle.component';
 import type { I18n } from '../i18n';
@@ -74,6 +76,9 @@ export class TemplateComponent extends ComponentReference {
   displayRequiredFields = false;
   documentTitle: string | undefined;
   bodyClassName: string | undefined;
+
+  logo = logoSrc;
+  shape = shapeSrc;
 
   isReadyToRender$: Observable<boolean>;
 

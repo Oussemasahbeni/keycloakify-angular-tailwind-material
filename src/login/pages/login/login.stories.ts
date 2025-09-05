@@ -34,6 +34,28 @@ export const WithInvalidCredential: Story = {
   },
 };
 
+export const French: Story = {
+  globals: {
+    kcContext: {
+      locale: {
+        currentLanguageTag: 'fr',
+        rtl: false,
+      },
+    },
+  },
+};
+
+export const Arabic: Story = {
+  globals: {
+    kcContext: {
+      locale: {
+        currentLanguageTag: 'ar',
+        rtl: true,
+      },
+    },
+  },
+};
+
 export const WithoutRegistration: Story = {
   globals: {
     kcContext: {

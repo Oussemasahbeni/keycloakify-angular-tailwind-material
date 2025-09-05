@@ -7,7 +7,7 @@ import { TemplateComponent } from './template/template.component';
 import './styles/index.scss';
 
 export const classes = {} satisfies Partial<Record<ClassKey, string>>;
-export const doUseDefaultCss = false;
+export const doUseDefaultCss = true;
 export const doMakeUserConfirmPassword = true;
 
 export async function getKcPage(pageId: KcContext['pageId']): Promise<KcPage> {

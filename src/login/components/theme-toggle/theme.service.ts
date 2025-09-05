@@ -9,19 +9,15 @@ export class ThemeService {
   private readonly storageKey = 'theme-preference';
   private readonly document = inject(DOCUMENT);
 
-  // Signal for current theme
   theme = signal<Theme>(this.getInitialTheme());
 
-  // Signal for actual applied theme (resolves 'system' to 'light'/'dark')
   appliedTheme = signal<'light' | 'dark'>('light');
 
   constructor() {
-    // Effect to apply theme changes
     effect(() => {
       this.applyTheme(this.theme());
     });
 
-    // Listen for system theme changes
     if (this.isClient()) {
       this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
         if (this.theme() === 'system') {
@@ -51,11 +47,9 @@ export class ThemeService {
 
     const actualTheme = this.resolveTheme(theme);
 
-    // Always apply to document root (html element) for universal compatibility
     this.document.documentElement.classList.remove('light', 'dark');
     this.document.documentElement.classList.add(actualTheme);
 
-    // Also set a CSS custom property for additional flexibility
     this.document.documentElement.style.setProperty('--theme', actualTheme);
 
     this.appliedTheme.set(actualTheme);

@@ -6,9 +6,9 @@
 
 @if (isReadyToRender) {
   <div class="grid min-h-svh lg:grid-cols-2">
-    <div>
+    <div class="flex flex-col">
       <!-- Header -->
-      <div class="flex justify-center gap-2 md:justify-start">
+      <div class="flex justify-center m-4 gap-2 md:justify-start">
         <!-- Locale switcher -->
         @if (i18n.enabledLanguages.length > 1) {
           <div class="flex justify-end">
@@ -43,117 +43,118 @@
 
       <!-- Content -->
       <div class="flex flex-1 items-center justify-center">
-        <div class="w-full max-w-xs">
-          <div class="flex flex-col h-screen items-center justify-center">
-            <div class="w-full px-4 py-8 sm:w-auto sm:rounded-2xl sm:p-10 sm:shadow">
-              <div class="mx-auto w-full max-w-120 sm:mx-0 sm:w-120">
-                <header [kcClass]="'kcFormHeaderClass'">
-                  <!-- Header content -->
-                  <ng-template #node>
-                    @if (auth && !auth.showUsername && !auth.showResetCredentials) {
-                      <h1 id="kc-page-title">
-                        @let header = headerNode && headerNode();
-                        @if (header) {
-                          <ng-container [ngTemplateOutlet]="header" />
-                        }
-                      </h1>
-                    } @else {
-                      <div
-                        id="kc-username"
-                        [kcClass]="'kcFormGroupClass'"
-                      >
-                        <label id="kc-attempted-username">{{ auth?.attemptedUsername }}</label>
-                        <a
-                          id="reset-login"
-                          [href]="url?.loginRestartFlowUrl"
-                          [attr.aria-label]="i18n.msgStr('restartLoginTooltip')"
-                        >
-                          <div class="kc-login-tooltip">
-                            <i [kcClass]="'kcResetFlowIcon'"></i>
-                            <span class="kc-tooltip-text">
-                              {{ i18n.msgStr('restartLoginTooltip') }}
-                            </span>
-                          </div>
-                        </a>
-                      </div>
-                    }
-                  </ng-template>
-
-                  @if (displayRequiredFields) {
-                    <div [kcClass]="'kcContentWrapperClass'">
-                      <div
-                        class="subtitle"
-                        [kcClass]="'kcLabelWrapperClass'"
-                      >
-                        <span class="subtitle">
-                          <span class="required">*</span>
-                          {{ i18n.msgStr('requiredFields') }}
-                        </span>
-                      </div>
-                      <div class="col-md-10">
-                        <ng-container [ngTemplateOutlet]="node" />
-                      </div>
-                    </div>
+        <div class="w-full max-w-xs flex flex-col items-center justify-center">
+          <div class="w-full px-4 py-8 sm:w-auto sm:rounded-2xl sm:p-10 sm:shadow">
+            <div class="mx-auto w-full max-w-120 sm:mx-0 sm:w-120">
+              <header [kcClass]="'kcFormHeaderClass'">
+                <!-- Header content -->
+                <ng-template #node>
+                  @if (auth && !auth.showUsername && !auth.showResetCredentials) {
+                    <h1
+                      class="rtl:text-right"
+                      id="kc-page-title"
+                    >
+                      @let header = headerNode && headerNode();
+                      @if (header) {
+                        <ng-container [ngTemplateOutlet]="header" />
+                      }
+                    </h1>
                   } @else {
-                    <ng-container [ngTemplateOutlet]="node" />
-                  }
-                </header>
-
-                <div id="kc-content">
-                  <div id="kc-content-wrapper">
-                    <!-- Message display -->
-                    @if (displayMessage && message && (message.type !== 'warning' || !isAppInitiatedAction)) {
-                      <!-- Alert -->
-                      <kc-alert
-                        [type]="message.type"
-                        [appearance]="'outline'"
+                    <div
+                      id="kc-username"
+                      [kcClass]="'kcFormGroupClass'"
+                    >
+                      <label id="kc-attempted-username">{{ auth?.attemptedUsername }}</label>
+                      <a
+                        id="reset-login"
+                        [href]="url?.loginRestartFlowUrl"
+                        [attr.aria-label]="i18n.msgStr('restartLoginTooltip')"
                       >
-                        <span
-                          [kcClass]="'kcAlertTitleClass'"
-                          [innerHTML]="message.summary | kcSanitize: 'html'"
-                        ></span>
-                      </kc-alert>
-                    }
-                    <!-- Content -->
-                    <ng-template #pageRef></ng-template>
-
-                    @if (!!auth && auth?.showTryAnotherWayLink) {
-                      <form
-                        id="kc-select-try-another-way-form"
-                        method="post"
-                        [action]="url?.loginAction"
-                      >
-                        <div [kcClass]="'kcFormGroupClass'">
-                          <div [kcClass]="'kcFormGroupClass'">
-                            <input
-                              type="hidden"
-                              name="tryAnotherWay"
-                              value="on"
-                            />
-                            <a
-                              id="try-another-way"
-                              (click)="tryAnotherWay()"
-                            >
-                              {{ i18n.msgStr('doTryAnotherWay') }}
-                            </a>
-                          </div>
+                        <div class="kc-login-tooltip">
+                          <i [kcClass]="'kcResetFlowIcon'"></i>
+                          <span class="kc-tooltip-text">
+                            {{ i18n.msgStr('restartLoginTooltip') }}
+                          </span>
                         </div>
-                      </form>
-                    }
-                    @let socialProviders = socialProvidersNode && socialProvidersNode();
-                    @if (socialProviders) {
-                      <ng-container [ngTemplateOutlet]="socialProviders" />
-                    }
-                    <!-- Info display -->
-                    @if (displayInfo) {
-                      <div class="text-center text-md mt-4">
-                        @let info = infoNode && infoNode();
-                        @if (info) {
-                          <ng-container [ngTemplateOutlet]="info" />
-                        }
-                      </div>
-                    }
+                      </a>
+                    </div>
+                  }
+                </ng-template>
+
+                @if (displayRequiredFields) {
+                  <div [kcClass]="'kcContentWrapperClass'">
+                    <div
+                      class="subtitle"
+                      [kcClass]="'kcLabelWrapperClass'"
+                    >
+                      <span class="subtitle">
+                        <span class="required">*</span>
+                        {{ i18n.msgStr('requiredFields') }}
+                      </span>
+                    </div>
+                    <div class="col-md-10">
+                      <ng-container [ngTemplateOutlet]="node" />
+                    </div>
                   </div>
+                } @else {
+                  <ng-container [ngTemplateOutlet]="node" />
+                }
+              </header>
+
+              <div id="kc-content">
+                <div id="kc-content-wrapper">
+                  <!-- Message display -->
+                  @if (displayMessage && message && (message.type !== 'warning' || !isAppInitiatedAction)) {
+                    <!-- Alert -->
+                    <kc-alert
+                      [type]="message.type"
+                      [appearance]="'outline'"
+                    >
+                      <span
+                        [kcClass]="'kcAlertTitleClass'"
+                        [innerHTML]="message.summary | kcSanitize: 'html'"
+                      ></span>
+                    </kc-alert>
+                  }
+                  <!-- Content -->
+                  <ng-template #pageRef></ng-template>
+
+                  @if (!!auth && auth?.showTryAnotherWayLink) {
+                    <form
+                      id="kc-select-try-another-way-form"
+                      method="post"
+                      [action]="url?.loginAction"
+                    >
+                      <div [kcClass]="'kcFormGroupClass'">
+                        <div [kcClass]="'kcFormGroupClass'">
+                          <input
+                            type="hidden"
+                            name="tryAnotherWay"
+                            value="on"
+                          />
+                          <a
+                            id="try-another-way"
+                            (click)="tryAnotherWay()"
+                          >
+                            {{ i18n.msgStr('doTryAnotherWay') }}
+                          </a>
+                        </div>
+                      </div>
+                    </form>
+                  }
+                  @let socialProviders = socialProvidersNode && socialProvidersNode();
+                  @if (socialProviders) {
+                    <ng-container [ngTemplateOutlet]="socialProviders" />
+                  }
+                  <!-- Info display -->
+                  @if (displayInfo) {
+                    <div class="text-center text-md mt-4">
+                      @let info = infoNode && infoNode();
+                      @if (info) {
+                        <ng-container [ngTemplateOutlet]="info" />
+                      }
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -168,13 +169,13 @@
         <!-- ===== Common Grid Shape Start ===== -->
         <div class="absolute right-0 top-0 w-full max-w-[250px] xl:max-w-[450px]">
           <img
-            [src]="'/images/shape/grid-01.svg'"
+            [src]="shape"
             alt="grid"
           />
         </div>
         <div class="absolute bottom-0 left-0 w-full max-w-[250px] rotate-180 xl:max-w-[450px]">
           <img
-            [src]="'/images/shape/grid-01.svg'"
+            [src]="shape"
             alt="grid"
           />
         </div>
@@ -184,7 +185,7 @@
             <img
               width="231"
               height="48"
-              src="/images/logo/auth-logo.svg"
+              [src]="logo"
               alt="Logo"
             />
           </a>

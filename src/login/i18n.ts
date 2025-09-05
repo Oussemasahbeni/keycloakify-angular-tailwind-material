@@ -11,18 +11,27 @@ const { getI18n, ofTypeI18n } = i18nBuilder
       doRegister: "S'inscrire",
       loginAccountSubtitle: 'Entrez votre email et mot de passe pour vous connecter !',
       welcomeMessage: 'Bienvenue sur Planingo Votre passerelle vers une planification et une organisation sans faille.',
+      dark: 'Sombre',
+      light: 'Lumière',
+      system: 'Système',
     },
     en: {
       noAccount: "Don't have an account?",
       doRegister: 'Sign Up',
       loginAccountSubtitle: 'Enter your email and password to sign in!',
       welcomeMessage: 'Welcome to Planingo - Your gateway to seamless planning and organization.',
+      dark: 'Dark',
+      light: 'Light',
+      system: 'System',
     },
     ar: {
       noAccount: 'ليس لديك حساب؟',
       doRegister: 'سجل',
       loginAccountSubtitle: 'أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول!',
       welcomeMessage: 'مرحبًا بك في Planingo - بوابتك إلى التخطيط والتنظيم السلس.',
+      dark: 'داكن',
+      light: 'فاتح',
+      system: 'النظام',
     },
   })
   .build();

@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
+import { I18n } from 'keycloakify/login/i18n';
 import { Theme, ThemeService } from './theme.service';
 
 @Component({
@@ -30,7 +32,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'light'"
       >
         <mat-icon>light_mode</mat-icon>
-        <span>Light</span>
+        <span>{{ i18n.msgStr('light') }}</span>
       </button>
       <button
         mat-menu-item
@@ -38,7 +40,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'dark'"
       >
         <mat-icon>dark_mode</mat-icon>
-        <span>Dark</span>
+        <span>{{ i18n.msgStr('dark') }}</span>
       </button>
       <button
         mat-menu-item
@@ -46,7 +48,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'system'"
       >
         <mat-icon>settings_suggest</mat-icon>
-        <span>System</span>
+        <span>{{ i18n.msgStr('system') }}</span>
       </button>
     </mat-menu>
   `,
@@ -60,6 +62,8 @@ import { Theme, ThemeService } from './theme.service';
 })
 export class ThemeToggleComponent {
   themeService = inject(ThemeService);
+
+  i18n = inject<I18n>(LOGIN_I18N);
 
   setTheme(theme: Theme): void {
     this.themeService.setTheme(theme);
