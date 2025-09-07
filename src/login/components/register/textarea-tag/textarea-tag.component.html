@@ -1,0 +1,34 @@
+@let attr = attribute();
+@if (attr) {
+  <mat-form-field
+    class="w-full mt-3"
+    appearance="outline"
+  >
+    <mat-label>
+      {{ i18n.advancedMsgStr(attr.displayName ?? '') }}
+      @if (attr.required) {
+        *
+      }
+    </mat-label>
+
+    <textarea
+      [id]="attr.name"
+      [name]="attr.name"
+      matInput
+      [kcClass]="'kcInputClass'"
+      [attr.aria-invalid]="!!displayableErrors()?.length"
+      [disabled]="attr.readOnly"
+      [cols]="attr.annotations.inputTypeCols === undefined ? undefined : (attr.annotations.inputTypeCols | toNumber)"
+      [rows]="attr.annotations.inputTypeRows === undefined ? undefined : (attr.annotations.inputTypeRows | toNumber)"
+      [maxLength]="
+        attr.annotations.inputTypeMaxlength === undefined ? undefined : (attr.annotations.inputTypeMaxlength | toNumber)
+      "
+      [value]="value()"
+      (change)="onChange($event)"
+      (blur)="onBlur()"
+    ></textarea>
+    <mat-hint align="end">
+      {{ i18n.advancedMsgStr(attr.annotations.inputHelperTextAfter ?? '') }}
+    </mat-hint>
+  </mat-form-field>
+}

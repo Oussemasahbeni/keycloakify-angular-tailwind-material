@@ -46,7 +46,7 @@
         <div class="w-full max-w-xs flex flex-col items-center justify-center">
           <div class="w-full px-4 py-8 sm:w-auto sm:rounded-2xl sm:p-10 sm:shadow">
             <div class="mx-auto w-full max-w-120 sm:mx-0 sm:w-120">
-              <header [kcClass]="'kcFormHeaderClass'">
+              <header>
                 <!-- Header content -->
                 <ng-template #node>
                   @if (auth && !auth.showUsername && !auth.showResetCredentials) {
@@ -83,12 +83,9 @@
 
                 @if (displayRequiredFields) {
                   <div [kcClass]="'kcContentWrapperClass'">
-                    <div
-                      class="subtitle"
-                      [kcClass]="'kcLabelWrapperClass'"
-                    >
+                    <div class="text-end">
                       <span class="subtitle">
-                        <span class="required">*</span>
+                        <span class="text-red-500">*</span>
                         {{ i18n.msgStr('requiredFields') }}
                       </span>
                     </div>

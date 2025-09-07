@@ -31,7 +31,7 @@
   font-variation-settings: 'FILL' 1;
 }
 
-/* `.dark-theme` is the class name to enable dark mode in our application */
+/* `.dark` is the class name to enable dark mode in our application */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* `inline` is needed to use the CSS variables in tailwind's @theme */

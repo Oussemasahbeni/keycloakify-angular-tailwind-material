@@ -67,3 +67,22 @@ body {
     )
   );
 }
+
+:root {
+  @include mat.form-field-overrides(
+    (
+      container-height: 40px,
+      container-vertical-padding: 14px,
+    )
+  );
+}
+
+.outline-button-error {
+  @include mat.button-overrides(
+    (
+      outlined-label-text-color: var(--mat-sys-error),
+      outlined-hover-state-layer-opacity: 0.1,
+      outlined-state-layer-color: var(--mat-sys-error),
+    )
+  );
+}

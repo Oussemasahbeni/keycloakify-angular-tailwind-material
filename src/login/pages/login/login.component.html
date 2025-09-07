@@ -6,13 +6,13 @@
 @let login = kcContext.login;
 
 <ng-template #headerNode>
-  <div class="leading-tight tracking-tight flex flex-col mb-3">
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
     <span class="text-2xl font-extrabold">{{ i18n.msgStr('loginAccountTitle') }}</span>
 
     <span class="text-sm text-gray-500 font-medium">
       {{ i18n.msgStr('loginAccountSubtitle') }}
     </span>
-    <hr class="my-1" />
+    <hr class="my-4" />
   </div>
 </ng-template>
 <ng-template #infoNode>
@@ -139,7 +139,7 @@
             <button
               mat-icon-button
               type="button"
-              class="mr-2!"
+              class="me-2!"
               (click)="
                 passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
               "

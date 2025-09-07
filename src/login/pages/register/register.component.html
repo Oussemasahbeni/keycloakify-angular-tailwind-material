@@ -1,0 +1,131 @@
+@let url = kcContext.url;
+@let messagesPerField = kcContext.messagesPerField;
+@let recaptchaRequired = kcContext.recaptchaRequired;
+@let recaptchaVisible = kcContext.recaptchaVisible;
+@let recaptchaSiteKey = kcContext.recaptchaSiteKey;
+@let recaptchaAction = kcContext.recaptchaAction;
+@let termsAcceptanceRequired = kcContext.termsAcceptanceRequired;
+
+<ng-template #headerNode>
+  @let messageHeader = kcContext.messageHeader;
+  <div class="leading-tight tracking-tight mb-3 flex flex-col">
+    <span class="text-2xl font-extrabold">{{ messageHeader ?? i18n.advancedMsgStr('registerTitle') }}</span>
+
+    <span class="text-md">
+      {{ i18n.msgStr('backToLogin') }}
+      <a
+        class="text-primary hover:underline font-semibold"
+        [href]="kcContext.url.loginUrl"
+      >
+        {{ i18n.msgStr('doLogIn') }}
+      </a>
+    </span>
+    <hr class="my-4" />
+  </div>
+</ng-template>
+<form
+  id="kc-register-form"
+  method="post"
+  [kcClass]="'kcFormClass'"
+  [action]="url.registrationAction"
+>
+  <ng-container [ngComponentOutlet]="userProfileFormFields() ?? null" />
+  @if (termsAcceptanceRequired) {
+    <div class="form-group">
+      <div [kcClass]="'kcInputWrapperClass'">
+        {{ i18n.msgStr('termsTitle') }}
+        <div id="kc-registration-terms-text">
+          {{ i18n.msgStr('termsText') }}
+        </div>
+      </div>
+    </div>
+    <div class="my-2">
+      <!-- <input
+          type="checkbox"
+          id="termsAccepted"
+          name="termsAccepted"
+          [kcClass]="'kcCheckboxInputClass'"
+          [checked]="areTermsAccepted()"
+          [attr.aria-invalid]="messagesPerField.existsError('termsAccepted')"
+          (change)="areTermsAccepted.set($any($event.target).checked)"
+        />
+        <label
+          for="termsAccepted"
+          [kcClass]="'kcLabelClass'"
+        >
+          {{ i18n.msgStr('acceptTerms') }}
+        </label> -->
+
+      <mat-checkbox
+        id="termsAccepted"
+        name="termsAccepted"
+        [checked]="areTermsAccepted()"
+        (change)="areTermsAccepted.set($event.checked)"
+        [attr.aria-invalid]="messagesPerField.existsError('termsAccepted')"
+        class="kcCheckboxInputClass"
+      >
+        {{ i18n.msgStr('acceptTerms') }}
+      </mat-checkbox>
+      @if (messagesPerField.existsError('termsAccepted')) {
+        <div [kcClass]="'kcLabelWrapperClass'">
+          <span
+            id="input-error-terms-accepted"
+            aria-live="polite"
+            class="text-error"
+            [innerHtml]="messagesPerField.get('termsAccepted') | kcSanitize: 'html'"
+          ></span>
+        </div>
+      }
+    </div>
+  }
+  @if (recaptchaRequired && (recaptchaVisible || recaptchaAction === undefined)) {
+    <div class="mb-5">
+      <div
+        class="g-recaptcha"
+        data-size="normal"
+        [attr.data-sitekey]="recaptchaSiteKey"
+        [attr.data-action]="recaptchaAction"
+      ></div>
+    </div>
+  }
+
+  <div [kcClass]="'kcFormGroupClass'">
+    @if (recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined) {
+      <div
+        id="kc-form-buttons"
+        [kcClass]="'kcFormButtonsClass'"
+      >
+        <button
+          class="g-recaptcha"
+          type="submit"
+          [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
+          [attr.data-sitekey]="recaptchaSiteKey"
+          data-callback="onSubmitRecaptcha"
+          [attr.data-action]="recaptchaAction"
+        >
+          {{ i18n.msgStr('doRegister') }}
+        </button>
+      </div>
+    } @else {
+      <div
+        id="kc-form-buttons"
+        [kcClass]="'kcFormButtonsClass'"
+      >
+        <!-- <input
+            type="submit"
+            [disabled]="!isFormSubmittable() || (termsAcceptanceRequired && !areTermsAccepted())"
+            [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
+          [value]="i18n.msgStr('doRegister')"
+        /> -->
+        <button
+          type="submit"
+          class="w-full"
+          matButton="filled"
+          [disabled]="!isFormSubmittable() || (termsAcceptanceRequired && !areTermsAccepted())"
+        >
+          {{ i18n.msgStr('doRegister') }}
+        </button>
+      </div>
+    }
+  </div>
+</form>

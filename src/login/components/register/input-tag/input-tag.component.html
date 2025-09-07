@@ -1,0 +1,98 @@
+@let attr = attribute();
+@let index = fieldIndex();
+@if (attr) {
+  <mat-form-field
+    class="w-full"
+    appearance="outline"
+  >
+    <mat-label>
+      {{ i18n.advancedMsgStr(attr.displayName ?? '') }}
+      @if (attr.required) {
+        *
+      }
+    </mat-label>
+    <input
+      [type]="attr.annotations.inputType | inputType"
+      [id]="attr.name"
+      [name]="attr.name"
+      matInput
+      [value]="value()"
+      [kcClass]="'kcInputClass'"
+      [attr.aria-invalid]="index && displayableErrors()?.[index] !== undefined"
+      [disabled]="attr.readOnly"
+      [autocomplete]="attr.autocomplete"
+      [placeholder]="i18n.advancedMsgStr(attr.annotations.inputTypePlaceholder ?? '')"
+      [attr.pattern]="attr.annotations.inputTypePattern"
+      [attr.size]="
+        !attr.annotations.inputTypeSize
+          ? undefined
+          : (attr.annotations.inputTypeSize | toNumber) === 0
+            ? undefined
+            : (attr.annotations.inputTypeSize | toNumber)
+      "
+      [attr.maxlength]="
+        !attr.annotations.inputTypeMaxlength ? undefined : (attr.annotations.inputTypeMaxlength | toNumber)
+      "
+      [attr.minlength]="
+        !attr.annotations.inputTypeMinlength ? undefined : (attr.annotations.inputTypeMinlength | toNumber)
+      "
+      [attr.max]="attr.annotations.inputTypeMax"
+      [attr.min]="attr.annotations.inputTypeMin"
+      [attr.step]="attr.annotations.inputTypeStep"
+      [kcAttributes]="attr.html5DataAnnotations"
+      (change)="onChange($event)"
+      (blur)="onBlur()"
+      #field
+    />
+
+    @if (attr.name === 'password' || attr.name === 'password-confirm') {
+      <button
+        mat-icon-button
+        type="button"
+        class="me-2!"
+        (click)="field.type === 'password' ? (field.type = 'text') : (field.type = 'password')"
+        matSuffix
+      >
+        @if (field.type === 'password') {
+          <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:eye'"
+          ></mat-icon>
+        }
+        @if (field.type === 'text') {
+          <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:eye-slash'"
+          ></mat-icon>
+        }
+      </button>
+    }
+
+    @for (error of displayableErrors(); track error; let i = $index) {
+      <!-- {{ error.fieldIndex }} - {{ index }}
+      @if (error.fieldIndex === index) {
+        <mat-hint class="text-error">
+          {{ error.errorMessageStr }}
+        </mat-hint>
+      } -->
+      <mat-hint class="text-error">
+        {{ error.errorMessageStr }}
+      </mat-hint>
+    }
+  </mat-form-field>
+
+  @if (index !== undefined) {
+    @let values = valueOrValues() ?? [] | toArray;
+    <kc-field-errors
+      [attribute]="attr"
+      [displayableErrors]="displayableErrors()"
+      [fieldIndex]="index"
+    />
+    <kc-add-remove-buttons-multi-valued-attribute
+      [attribute]="attr"
+      [values]="values"
+      [fieldIndex]="index"
+      (dispatchFormAction)="dispatchFormAction.emit($event)"
+    />
+  }
+}

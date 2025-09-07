@@ -1,0 +1,25 @@
+@let idPostfix = attribute()?.name ?? '' + '-' + (fieldIndex() ?? 0 + 1);
+@if (hasRemove()) {
+  <button
+    type="button"
+    matButton="outlined"
+    class="outline-button-error mb-1"
+    [id]="'kc-remove-' + idPostfix"
+    (click)="onRemove()"
+  >
+    {{ i18n.msgStr('remove') }}
+  </button>
+  @if (hasAdd()) {
+    &nbsp;|&nbsp;
+  }
+}
+@if (hasAdd()) {
+  <button
+    type="button"
+    matButton="outlined"
+    [id]="'kc-add-' + idPostfix"
+    (click)="onAdd()"
+  >
+    {{ i18n.msgStr('addValue') }}
+  </button>
+}
