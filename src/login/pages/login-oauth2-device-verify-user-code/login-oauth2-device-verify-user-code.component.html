@@ -1,0 +1,60 @@
+@let url = kcContext.url;
+@let messagesPerField = kcContext.messagesPerField;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-2xl font-bold">{{ i18n.msgStr('oauth2DeviceVerificationTitle') }}</span>
+
+    <p class="mb-2">{{ i18n.msgStr('verifyOAuth2DeviceUserCode') }}</p>
+  </div>
+</ng-template>
+
+<div id="kc-form">
+  <div id="kc-form-wrapper">
+    <form
+      id="kc-user-verify-device-user-code-form"
+      method="post"
+      class="space-y-3!"
+      [action]="url.oauth2DeviceVerificationAction"
+    >
+      <div
+        class="no-bottom-margin"
+        [kcClass]="'kcFormGroupClass'"
+      >
+        <mat-form-field
+          appearance="outline"
+          subscriptSizing="dynamic"
+          class="w-full"
+        >
+          <input
+            matInput
+            id="device-user-code"
+            name="device_user_code"
+            type="text"
+            autocomplete="off"
+            autofocus
+            [attr.aria-invalid]="messagesPerField?.existsError('device_user_code')"
+          />
+          @if (messagesPerField?.existsError('device_user_code')) {
+            <mat-hint class="text-error">
+              {{ messagesPerField.getFirstError('device_user_code') }}
+            </mat-hint>
+          }
+        </mat-form-field>
+      </div>
+
+      <div
+        id="kc-form-buttons"
+        [kcClass]="'kcFormGroupClass'"
+      >
+        <button
+          type="submit"
+          class="w-full"
+          matButton="filled"
+        >
+          {{ i18n.msgStr('doSubmit') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

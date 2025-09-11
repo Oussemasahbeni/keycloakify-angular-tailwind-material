@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, inject, type TemplateRef, viewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { USE_DEFAULT_CSS } from '@keycloakify/angular/lib/tokens/use-default-css';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
 import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
@@ -10,19 +13,19 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective],
-  selector: 'kc-login-verify-email',
-  templateUrl: 'login-verify-email.component.html',
+  imports: [KcClassDirective, MatFormFieldModule, MatInputModule, MatButtonModule],
+  selector: 'kc-login-oauth2-device-verify-user-code',
+  templateUrl: 'login-oauth2-device-verify-user-code.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: ComponentReference,
-      useExisting: forwardRef(() => LoginVerifyEmailComponent),
+      useExisting: forwardRef(() => LoginOauth2DeviceVerifyUserCodeComponent),
     },
   ],
 })
-export class LoginVerifyEmailComponent extends ComponentReference {
-  kcContext = inject<Extract<KcContext, { pageId: 'login-verify-email.ftl' }>>(KC_LOGIN_CONTEXT);
+export class LoginOauth2DeviceVerifyUserCodeComponent extends ComponentReference {
+  kcContext = inject<Extract<KcContext, { pageId: 'login-oauth2-device-verify-user-code.ftl' }>>(KC_LOGIN_CONTEXT);
   i18n = inject<I18n>(LOGIN_I18N);
   override doUseDefaultCss = inject<boolean>(USE_DEFAULT_CSS);
   override classes = inject<Partial<Record<ClassKey, string>>>(LOGIN_CLASSES);

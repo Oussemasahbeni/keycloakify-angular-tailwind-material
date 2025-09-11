@@ -98,6 +98,26 @@ export async function getKcPage(pageId: KcContext['pageId']): Promise<KcPage> {
         doUseDefaultCss,
         classes,
       };
+    case 'terms.ftl':
+      return {
+        PageComponent: (await import('./pages/terms/terms.component')).TermsComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-oauth2-device-verify-user-code.ftl':
+      return {
+        PageComponent: (
+          await import('./pages/login-oauth2-device-verify-user-code/login-oauth2-device-verify-user-code.component')
+        ).LoginOauth2DeviceVerifyUserCodeComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
     case 'register.ftl':
       return {
         PageComponent: (await import('./pages/register/register.component')).RegisterComponent,

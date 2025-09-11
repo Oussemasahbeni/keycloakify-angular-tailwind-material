@@ -1,0 +1,31 @@
+@let url = kcContext.url;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-bold">{{ i18n.msgStr('termsTitle') }}</span>
+  </div>
+</ng-template>
+<div id="kc-terms-text">{{ i18n.msgStr('termsText') }}</div>
+<form
+  class="form-actions flex items-center gap-4 mt-6"
+  method="POST"
+  [action]="url.loginAction"
+>
+  <button
+    name="accept"
+    type="submit"
+    id="kc-accept"
+    matButton="filled"
+  >
+    {{ i18n.msgStr('doAccept') }}
+  </button>
+  <button
+    name="cancel"
+    type="submit"
+    id="kc-decline"
+    matButton="outlined"
+  >
+    {{ i18n.msgStr('doDecline') }}
+  </button>
+</form>
+<div class="clearfix"></div>
