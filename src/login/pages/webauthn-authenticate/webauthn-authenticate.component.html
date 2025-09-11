@@ -1,0 +1,279 @@
+@let url = kcContext.url;
+@let authenticators = kcContext.authenticators;
+@let shouldDisplayAuthenticators = kcContext.shouldDisplayAuthenticators;
+
+<ng-template #headerNode>
+  <!-- {{ i18n.msgStr('webauthn-login-title') }} -->
+  <div class="leading-tight tracking-tight my-5">
+    <span class="text-2xl font-extrabold">{{ i18n.msgStr('webauthn-login-title') }}</span>
+  </div>
+</ng-template>
+
+<ng-template #infoNode>
+  @let url = kcContext.url;
+  <div id="kc-registration-container">
+    <div
+      id="kc-registration"
+      class="text-start"
+    >
+      <span>
+        {{ i18n.msgStr('noAccount') }}
+        <a
+          tabindex="8"
+          class="font-bold! text-primary"
+          [href]="url?.registrationUrl"
+        >
+          {{ i18n.msgStr('doRegister') }}
+        </a>
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<div
+  id="kc-form-webauthn"
+  [kcClass]="'kcFormClass'"
+>
+  <form
+    id="webauth"
+    method="post"
+    [action]="url.loginAction"
+  >
+    <input
+      type="hidden"
+      id="clientDataJSON"
+      name="clientDataJSON"
+    />
+    <input
+      type="hidden"
+      id="authenticatorData"
+      name="authenticatorData"
+    />
+    <input
+      type="hidden"
+      id="signature"
+      name="signature"
+    />
+    <input
+      type="hidden"
+      id="credentialId"
+      name="credentialId"
+    />
+    <input
+      type="hidden"
+      id="userHandle"
+      name="userHandle"
+    />
+    <input
+      type="hidden"
+      id="error"
+      name="error"
+    />
+  </form>
+
+  <div
+    class="no-bottom-margin"
+    [kcClass]="'kcFormGroupClass'"
+  >
+    <!-- @if (authenticators) {
+      <form
+        id="authn_select"
+        [kcClass]="'kcFormClass'"
+      >
+        @for (authenticator of authenticators.authenticators; track authenticator.credentialId) {
+          <input
+            type="hidden"
+            name="authn_use_chk"
+            [value]="authenticator.credentialId"
+          />
+        }
+        @if (shouldDisplayAuthenticators) {
+          @if (authenticators.authenticators.length > 1) {
+            <p [kcClass]="'kcSelectAuthListItemTitle'">
+              {{ i18n.msgStr('webauthn-available-authenticators') }}
+            </p>
+          }
+          <div [kcClass]="'kcFormOptionsClass'">
+            @for (authenticator of authenticators.authenticators; track authenticator.credentialId; let i = $index) {
+              <div
+                [id]="'kc-webauthn-authenticator-item-' + i"
+                [kcClass]="'kcSelectAuthListItemClass'"
+              >
+                <div [kcClass]="'kcSelectAuthListItemIconClass'">
+                  <i
+                    [ngClass]="selectAuthListItemIconClass(authenticator.transports.iconClass)"
+                    [kcClass]="'kcSelectAuthListItemIconPropertyClass'"
+                  ></i>
+                  <div [kcClass]="'kcSelectAuthListItemArrowIconClass'">
+                    <div
+                      [id]="'kc-webauthn-authenticator-label-' + i"
+                      [kcClass]="'kcSelectAuthListItemHeadingClass'"
+                    >
+                      {{ i18n.advancedMsgStr(authenticator.label) }}
+                    </div>
+                    @if (authenticator.transports.displayNameProperties?.length) {
+                      <div
+                        [id]="'kc-webauthn-authenticator-transport-' + i"
+                        [kcClass]="'kcSelectAuthListItemDescriptionClass'"
+                      >
+                        @for (
+                          displayNameProperty of authenticator.transports.displayNameProperties;
+                          track displayNameProperty;
+                          let last = $last
+                        ) {
+                          {{ i18n.advancedMsgStr(displayNameProperty) }}
+                          @if (!last) {
+                            <span>, </span>
+                          }
+                        }
+                      </div>
+                      <div [kcClass]="'kcSelectAuthListItemDescriptionClass'">
+                        <span [id]="'kc-webauthn-authenticator-createdlabel-' + i">
+                          {{ i18n.msgStr('webauthn-createdAt-label') }}
+                        </span>
+                        <span [id]="'kc-webauthn-authenticator-created-' + i">{{ authenticator.createdAt }}</span>
+                      </div>
+                      <div [kcClass]="'kcSelectAuthListItemFillClass'"></div>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </form>
+    } -->
+
+    @if (authenticators) {
+      <form
+        id="authn_select"
+        [kcClass]="'kcFormClass'"
+        class="mt-4"
+      >
+        @for (authenticator of authenticators.authenticators; track authenticator.credentialId) {
+          <input
+            type="hidden"
+            name="authn_use_chk"
+            [value]="authenticator.credentialId"
+          />
+        }
+
+        @if (shouldDisplayAuthenticators) {
+          @if (authenticators.authenticators.length > 1) {
+            <div class="mb-4">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
+                {{ i18n.msgStr('webauthn-available-authenticators') }}
+              </h3>
+              <hr />
+            </div>
+          }
+
+          <div class="space-y-3">
+            @for (authenticator of authenticators.authenticators; track authenticator.credentialId; let i = $index) {
+              <mat-card
+                class="cursor-pointer hover:shadow-md active:scale-[0.98]"
+                [id]="'kc-webauthn-authenticator-item-' + i"
+              >
+                <mat-card-content class="!p-4">
+                  <div class="flex items-start space-x-4">
+                    <!-- Icon Section -->
+                    <div class="flex-shrink-0">
+                      <div
+                        class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center"
+                      >
+                        <mat-icon
+                          class="icon-size-7"
+                          [svgIcon]="'heroicons_solid:key'"
+                        >
+                          security
+                        </mat-icon>
+                      </div>
+                    </div>
+
+                    <!-- Content Section -->
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between">
+                        <h4
+                          [id]="'kc-webauthn-authenticator-label-' + i"
+                          class="text-base font-medium text-gray-900 dark:text-gray-100 truncate"
+                        >
+                          {{ i18n.advancedMsgStr(authenticator.label) }}
+                        </h4>
+                        <mat-icon class="text-gray-400 dark:text-gray-500 ml-2"> chevron_right </mat-icon>
+                      </div>
+
+                      @if (authenticator.transports.displayNameProperties?.length) {
+                        <!-- Transport Info -->
+                        <div
+                          [id]="'kc-webauthn-authenticator-transport-' + i"
+                          class="mt-1"
+                        >
+                          <div class="flex flex-wrap gap-1">
+                            @for (
+                              displayNameProperty of authenticator.transports.displayNameProperties;
+                              track displayNameProperty;
+                              let last = $last
+                            ) {
+                              <mat-chip class="!text-xs !h-6 !px-2">
+                                {{ i18n.advancedMsgStr(displayNameProperty) }}
+                              </mat-chip>
+                            }
+                          </div>
+                        </div>
+
+                        <!-- Created Date -->
+                        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span [id]="'kc-webauthn-authenticator-createdlabel-' + i">
+                            {{ i18n.msgStr('webauthn-createdAt-label') }}
+                          </span>
+                          <span
+                            [id]="'kc-webauthn-authenticator-created-' + i"
+                            class="ml-1 font-medium"
+                          >
+                            {{ authenticator.createdAt | date: 'short' }}
+                          </span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </mat-card-content>
+
+                <!-- Selection Indicator -->
+                <div class="absolute top-3 right-3">
+                  <mat-icon
+                    class="text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    check_circle_outline
+                  </mat-icon>
+                </div>
+              </mat-card>
+            }
+          </div>
+        }
+      </form>
+    }
+    <div
+      id="kc-form-buttons"
+      class="mt-4"
+    >
+      <!-- <input
+        type="button"
+        autofocus
+        name="cancel-aia"
+        [id]="authButtonId"
+        [kcClass]="['kcButtonClass', 'kcButtonDefaultClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
+        [value]="i18n.msgStr('webauthn-doAuthenticate')"
+      /> -->
+
+      <button
+        class="w-full"
+        type="button"
+        autofocus
+        name="cancel-aia"
+        matButton="filled"
+      >
+        {{ i18n.msgStr('webauthn-doAuthenticate') }}
+      </button>
+    </div>
+  </div>
+</div>

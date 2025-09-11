@@ -1,9 +1,8 @@
 kc-alert {
   display: block;
-  margin-bottom: 30px;
 
   /* Common */
-  .fuse-alert-container {
+  .alert-container {
     position: relative;
     display: flex;
     padding: 16px;
@@ -16,12 +15,12 @@ kc-alert {
     }
 
     /* Icon */
-    .fuse-alert-icon {
+    .alert-icon {
       display: flex;
       align-items: flex-start;
 
-      .fuse-alert-custom-icon,
-      .fuse-alert-default-icon {
+      .alert-custom-icon,
+      .alert-default-icon {
         display: none;
         align-items: center;
         justify-content: center;
@@ -33,19 +32,19 @@ kc-alert {
         }
       }
 
-      .fuse-alert-default-icon {
+      .alert-default-icon {
         .mat-icon {
           // @apply icon-size-5;
         }
       }
 
-      .fuse-alert-custom-icon {
+      .alert-custom-icon {
         display: none;
 
         &:not(:empty) {
           display: flex;
 
-          + .fuse-alert-default-icon {
+          + .alert-default-icon {
             display: none;
           }
         }
@@ -53,14 +52,14 @@ kc-alert {
     }
 
     /* Content */
-    .fuse-alert-content {
+    .alert-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       line-height: 1;
 
       /* Title */
-      .fuse-alert-title {
+      .alert-title {
         display: none;
         font-weight: 600;
         line-height: 20px;
@@ -69,7 +68,7 @@ kc-alert {
           display: block;
 
           /* Alert that comes after the title */
-          + .fuse-alert-message {
+          + .alert-message {
             &:not(:empty) {
               margin-top: 4px;
             }
@@ -78,7 +77,7 @@ kc-alert {
       }
 
       /* Alert */
-      .fuse-alert-message {
+      .alert-message {
         display: none;
         line-height: 20px;
 
@@ -90,8 +89,8 @@ kc-alert {
   }
 
   /* Border */
-  &.fuse-alert-appearance-border {
-    .fuse-alert-container {
+  &.alert-appearance-border {
+    .alert-container {
       position: relative;
       overflow: hidden;
       border-radius: 6px;
@@ -102,7 +101,7 @@ kc-alert {
         var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
         var(--tw-shadow);
 
-      .fuse-alert-border {
+      .alert-border {
         position: absolute;
         left: 0;
         top: 0;
@@ -110,36 +109,36 @@ kc-alert {
         width: 4px;
       }
 
-      .fuse-alert-message {
+      .alert-message {
         color: var(--color-gray-600);
       }
     }
 
     /* Info */
-    &.fuse-alert-type-info {
-      .fuse-alert-container {
-        .fuse-alert-border {
+    &.alert-type-info {
+      .alert-container {
+        .alert-border {
           background-color: rgb(37 99 235);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-icon {
+        .alert-title,
+        .alert-icon {
           color: rgb(29 78 216);
         }
 
         .dark & {
           background-color: rgb(55 65 81);
 
-          .fuse-alert-border {
+          .alert-border {
             background-color: rgb(96 165 250);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-icon {
+          .alert-title,
+          .alert-icon {
             color: rgb(96 165 250);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
 
@@ -152,30 +151,30 @@ kc-alert {
     }
 
     /* Success */
-    &.fuse-alert-type-success {
-      .fuse-alert-container {
-        .fuse-alert-border {
+    &.alert-type-success {
+      .alert-container {
+        .alert-border {
           background-color: rgb(34 197 94);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-icon {
+        .alert-title,
+        .alert-icon {
           color: rgb(34 197 94);
         }
 
         .dark & {
           background-color: rgb(55 65 81);
 
-          .fuse-alert-border {
+          .alert-border {
             background-color: rgb(74 222 128);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-icon {
+          .alert-title,
+          .alert-icon {
             color: rgb(74 222 128);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
 
@@ -188,30 +187,30 @@ kc-alert {
     }
 
     /* Warning */
-    &.fuse-alert-type-warning {
-      .fuse-alert-container {
-        .fuse-alert-border {
+    &.alert-type-warning {
+      .alert-container {
+        .alert-border {
           background-color: rgb(245 158 11);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-icon {
+        .alert-title,
+        .alert-icon {
           color: rgb(245 158 11);
         }
 
         .dark & {
           background-color: rgb(55 65 81);
 
-          .fuse-alert-border {
+          .alert-border {
             background-color: rgb(251 191 36);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-icon {
+          .alert-title,
+          .alert-icon {
             color: rgb(251 191 36);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
 
@@ -224,30 +223,30 @@ kc-alert {
     }
 
     /* Error */
-    &.fuse-alert-type-error {
-      .fuse-alert-container {
-        .fuse-alert-border {
+    &.alert-type-error {
+      .alert-container {
+        .alert-border {
           background-color: rgb(220 38 38);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-icon {
+        .alert-title,
+        .alert-icon {
           color: rgb(185 28 28);
         }
 
         .dark & {
           background-color: rgb(55 65 81);
 
-          .fuse-alert-border {
+          .alert-border {
             background-color: rgb(248 113 113);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-icon {
+          .alert-title,
+          .alert-icon {
             color: rgb(248 113 113);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
 
@@ -261,28 +260,28 @@ kc-alert {
   }
 
   /* Outline */
-  &.fuse-alert-appearance-outline {
-    .fuse-alert-container {
+  &.alert-appearance-outline {
+    .alert-container {
       border-radius: 6px;
     }
 
     /* Info */
-    &.fuse-alert-type-info {
-      .fuse-alert-container {
+    &.alert-type-info {
+      .alert-container {
         background-color: rgb(239 246 255);
         border: 1px solid rgb(96 165 250);
         border-style: inset;
 
-        .fuse-alert-icon {
+        .alert-icon {
           color: rgb(37 99 235);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-dismiss-button {
+        .alert-title,
+        .alert-dismiss-button {
           color: rgb(30 58 138);
         }
 
-        .fuse-alert-message {
+        .alert-message {
           color: rgb(29 78 216);
         }
 
@@ -294,16 +293,16 @@ kc-alert {
         .dark & {
           background-color: rgb(37 99 235);
 
-          .fuse-alert-icon {
+          .alert-icon {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-dismiss-button {
+          .alert-title,
+          .alert-dismiss-button {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
         }
@@ -311,22 +310,22 @@ kc-alert {
     }
 
     /* Success */
-    &.fuse-alert-type-success {
-      .fuse-alert-container {
+    &.alert-type-success {
+      .alert-container {
         background-color: rgb(240 253 244);
         border: 1px solid rgb(74 222 128);
         border-style: inset;
 
-        .fuse-alert-icon {
+        .alert-icon {
           color: rgb(22 163 74);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-dismiss-button {
+        .alert-title,
+        .alert-dismiss-button {
           color: rgb(20 83 45);
         }
 
-        .fuse-alert-message {
+        .alert-message {
           color: rgb(21 128 61);
         }
 
@@ -338,16 +337,16 @@ kc-alert {
         .dark & {
           background-color: rgb(22 163 74);
 
-          .fuse-alert-icon {
+          .alert-icon {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-dismiss-button {
+          .alert-title,
+          .alert-dismiss-button {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(187 247 208);
           }
         }
@@ -355,22 +354,22 @@ kc-alert {
     }
 
     /* Warning */
-    &.fuse-alert-type-warning {
-      .fuse-alert-container {
+    &.alert-type-warning {
+      .alert-container {
         background-color: rgb(255 251 235);
         border: 1px solid rgb(251 191 36);
         border-style: inset;
 
-        .fuse-alert-icon {
+        .alert-icon {
           color: rgb(217 119 6);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-dismiss-button {
+        .alert-title,
+        .alert-dismiss-button {
           color: rgb(120 53 15);
         }
 
-        .fuse-alert-message {
+        .alert-message {
           color: rgb(180 83 9);
         }
 
@@ -382,16 +381,16 @@ kc-alert {
         .dark & {
           background-color: rgb(217 119 6);
 
-          .fuse-alert-icon {
+          .alert-icon {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-dismiss-button {
+          .alert-title,
+          .alert-dismiss-button {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(253 230 138);
           }
         }
@@ -399,22 +398,22 @@ kc-alert {
     }
 
     /* Error */
-    &.fuse-alert-type-error {
-      .fuse-alert-container {
+    &.alert-type-error {
+      .alert-container {
         background-color: rgb(254 242 242);
         border: 1px solid rgb(248 113 113);
         border-style: inset;
 
-        .fuse-alert-icon {
+        .alert-icon {
           color: rgb(220 38 38);
         }
 
-        .fuse-alert-title,
-        .fuse-alert-dismiss-button {
+        .alert-title,
+        .alert-dismiss-button {
           color: rgb(127 29 29);
         }
 
-        .fuse-alert-message {
+        .alert-message {
           color: rgb(185 28 28);
         }
 
@@ -426,16 +425,16 @@ kc-alert {
         .dark & {
           background-color: rgb(220 38 38);
 
-          .fuse-alert-icon {
+          .alert-icon {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-title,
-          .fuse-alert-dismiss-button {
+          .alert-title,
+          .alert-dismiss-button {
             color: rgb(255 255 255);
           }
 
-          .fuse-alert-message {
+          .alert-message {
             color: rgb(255 255 255);
           }
         }

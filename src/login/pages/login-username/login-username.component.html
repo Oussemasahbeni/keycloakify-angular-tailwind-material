@@ -5,63 +5,58 @@
 @let login = kcContext.login;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('doLogIn') }}
+  <!-- {{ i18n.msgStr('doLogIn') }} -->
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-2xl font-extrabold">{{ i18n.msgStr('loginAccountTitle') }}</span>
+  </div>
 </ng-template>
 <ng-template #infoNode>
   @let url = kcContext.url;
-  <div id="kc-registration">
-    <span>
-      {{ i18n.msgStr('noAccount') }}
-      <a
-        tabindex="6"
-        [href]="url?.registrationUrl"
-      >
-        {{ i18n.msgStr('doRegister') }}
-      </a>
-    </span>
+  <div id="kc-registration-container">
+    <div
+      id="kc-registration"
+      class="text-start"
+    >
+      <span>
+        {{ i18n.msgStr('noAccount') }}
+        <a
+          tabindex="8"
+          class="font-bold! text-primary"
+          [href]="url?.registrationUrl"
+        >
+          {{ i18n.msgStr('doRegister') }}
+        </a>
+      </span>
+    </div>
   </div>
 </ng-template>
 <ng-template #socialProvidersNode>
   @let realm = kcContext.realm;
   @let social = kcContext.social;
   @if (!!realm?.password && !!social?.providers?.length) {
-    <div
-      id="kc-social-providers"
-      [kcClass]="'kcFormSocialAccountSectionClass'"
-    >
-      <hr />
-      <h2>{{ i18n.msgStr('identity-provider-login-label') }}</h2>
+    <div id="kc-social-providers">
+      <div class="mt-4 flex items-center">
+        <div class="mt-px flex-auto border-t"></div>
+        <div class="text-primary mx-2">{{ i18n.msgStr('identity-provider-login-label') }}</div>
+        <div class="mt-px flex-auto border-t"></div>
+      </div>
       <ul
-        [kcClass]="{
-          kcFormSocialAccountListClass: true,
-          kcFormSocialAccountListGridClass: (social?.providers?.length ?? 0) > 3,
-        }"
+        class="mt-4! grid gap-2 sm:grid-cols-1"
+        [class.sm:grid-cols-2]="(social?.providers?.length ?? 0) > 3"
       >
         @for (provider of social?.providers; track provider.alias; let idx = $index) {
           <li>
             <a
-              type="button"
+              matButton="outlined"
               [id]="provider.alias"
-              [kcClass]="{
-                kcFormSocialAccountListButtonClass: true,
-                kcFormSocialAccountGridItem: (social?.providers?.length ?? 0) > 3,
-              }"
               [href]="provider.loginUrl"
+              type="button"
+              class="flex items-center justify-center w-full"
             >
               @if (provider.iconClasses) {
-                <i
-                  aria-hidden="true"
-                  [ngClass]="provider.iconClasses"
-                  [kcClass]="'kcCommonLogoIdP'"
-                ></i>
+                <mat-icon [svgIcon]="'social:' + provider.providerId" />
               }
-              <span
-                [ngClass]="{
-                  'kc-social-icon-text': provider.iconClasses,
-                }"
-                [kcClass]="'kcFormSocialAccountNameClass'"
-                [innerHTML]="provider.displayName | kcSanitize: 'html'"
-              ></span>
+              <span [innerHTML]="provider.displayName | kcSanitize: 'html'"></span>
             </a>
           </li>
         }
@@ -80,7 +75,7 @@
       >
         @if (!usernameHidden) {
           <div [kcClass]="'kcFormGroupClass'">
-            <label
+            <!-- <label
               for="username"
               [kcClass]="'kcLabelClass'"
             >
@@ -111,14 +106,45 @@
                 [innerHTML]="messagesPerField.getFirstError('username') | kcSanitize: 'html'"
               >
               </span>
-            }
+            } -->
+
+            <mat-form-field
+              appearance="outline"
+              class="w-full"
+            >
+              <mat-label for="username">
+                @if (!realm?.loginWithEmailAllowed) {
+                  {{ i18n.msgStr('username') }}
+                } @else if (!realm?.registrationEmailAsUsername) {
+                  {{ i18n.msgStr('usernameOrEmail') }}
+                } @else {
+                  {{ i18n.msgStr('email') }}
+                }
+              </mat-label>
+              <input
+                matInput
+                id="username"
+                name="username"
+                type="text"
+                tabindex="2"
+                autofocus
+                autocomplete="username"
+                [defaultValue]="login?.username || ''"
+                [attr.aria-invalid]="messagesPerField?.existsError('username')"
+              />
+              @if (messagesPerField?.existsError('username')) {
+                <mat-hint class="text-error">
+                  {{ messagesPerField.getFirstError('username') }}
+                </mat-hint>
+              }
+            </mat-form-field>
           </div>
         }
 
         <div [kcClass]="['kcFormGroupClass', 'kcFormSettingClass']">
           <div id="kc-form-options">
             @if (realm.rememberMe && !usernameHidden) {
-              <div class="checkbox">
+              <!-- <div class="checkbox">
                 <label>
                   <input
                     tabindex="5"
@@ -129,7 +155,18 @@
                   />
                   {{ i18n.msgStr('rememberMe') }}
                 </label>
-              </div>
+              </div> -->
+              <mat-checkbox
+                class="-ml-2 flex items-center justify-center"
+                [color]="'primary'"
+                id="rememberMe"
+                name="rememberMe"
+                type="checkbox"
+                tabindex="5"
+                [checked]="!!login?.rememberMe"
+              >
+                <span class="mt-5! mb-0!">{{ i18n.msgStr('rememberMe') }}</span>
+              </mat-checkbox>
             }
           </div>
         </div>
@@ -137,14 +174,25 @@
           id="kc-form-buttons"
           [kcClass]="'kcFormGroupClass'"
         >
-          <input
+          <!-- <input
             tabindex="4"
             name="login"
             id="kc-login"
             type="submit"
             [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
             [value]="i18n.msgStr('doLogIn')"
-          />
+          /> -->
+          <button
+            name="login"
+            tabindex="4"
+            class="w-full"
+            type="submit"
+            id="kc-login"
+            matButton="filled"
+            [disabled]="isLoginButtonDisabled()"
+          >
+            {{ i18n.msgStr('doLogIn') }}
+          </button>
         </div>
       </form>
     }

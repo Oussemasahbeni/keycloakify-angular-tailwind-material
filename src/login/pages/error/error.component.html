@@ -1,0 +1,43 @@
+@let message = kcContext.message;
+@let skipLink = kcContext.skipLink;
+@let client = kcContext.client;
+<ng-template #headerNode>
+  <!-- {{ i18n.msgStr('errorTitle') }} -->
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-semibold"> {{ i18n.msgStr('errorTitle') }}</span>
+  </div>
+</ng-template>
+
+<div id="kc-error-message">
+  <!-- <p
+    class="instruction"
+    [innerHTML]="message.summary | kcSanitize: 'html'"
+  ></p> -->
+
+  <kc-alert
+    [appearance]="'outline'"
+    [type]="'error'"
+    class="mb-4"
+  >
+    <span [innerHTML]="message.summary | kcSanitize: 'html'"></span>
+  </kc-alert>
+  @if (!skipLink && !!client?.baseUrl) {
+    <!-- <p>
+      <a
+        id="backToApplication"
+        [href]="client.baseUrl"
+        [innerHTML]="i18n.msgStr('backToApplication') | kcSanitize: 'html'"
+      ></a>
+    </p> -->
+
+    <div class="mt-6 flex justify-end">
+      <a
+        id="backToApplication"
+        matButton="outlined"
+        [href]="client.baseUrl"
+      >
+        <span [innerHTML]="i18n.msgStr('backToApplication') | kcSanitize: 'html'"></span>
+      </a>
+    </div>
+  }
+</div>

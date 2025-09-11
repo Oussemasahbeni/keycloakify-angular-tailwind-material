@@ -1,4 +1,3 @@
-import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,34 +20,35 @@ import { LOGIN_CLASSES } from '@keycloakify/angular/login/tokens/classes';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import type { ClassKey } from 'keycloakify/login/lib/kcClsx';
+import { PasswordWrapperComponent } from '../../components/password-wrapper/password-wrapper.component';
 import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  selector: 'kc-login-username',
-  templateUrl: 'login-username.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     KcClassDirective,
-    AsyncPipe,
+    PasswordWrapperComponent,
     KcSanitizePipe,
-    NgClass,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
   ],
+  selector: 'kc-login-password',
+  templateUrl: 'login-password.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: ComponentReference,
-      useExisting: forwardRef(() => LoginUsernameComponent),
+      useExisting: forwardRef(() => LoginPasswordComponent),
     },
   ],
 })
-export class LoginUsernameComponent extends ComponentReference {
-  kcContext = inject<Extract<KcContext, { pageId: 'login-username.ftl' }>>(KC_LOGIN_CONTEXT);
+export class LoginPasswordComponent extends ComponentReference {
+  kcContext = inject<Extract<KcContext, { pageId: 'login-password.ftl' }>>(KC_LOGIN_CONTEXT);
   i18n = inject<I18n>(LOGIN_I18N);
+
   override doUseDefaultCss = inject<boolean>(USE_DEFAULT_CSS);
   override classes = inject<Partial<Record<ClassKey, string>>>(LOGIN_CLASSES);
 
@@ -56,15 +56,13 @@ export class LoginUsernameComponent extends ComponentReference {
   bodyClassName: string | undefined;
 
   displayRequiredFields = false;
-  displayInfo: boolean =
-    !!this.kcContext?.realm?.password &&
-    !!this.kcContext?.realm?.registrationAllowed &&
-    !this.kcContext?.registrationDisabled;
-  displayMessage = !this.kcContext?.messagesPerField?.existsError('username');
+  displayInfo = true;
+  displayMessage = this.kcContext.messagesPerField.existsError('password');
 
   headerNode = viewChild<TemplateRef<HTMLElement>>('headerNode');
   infoNode = viewChild<TemplateRef<HTMLElement>>('infoNode');
   socialProvidersNode = viewChild<TemplateRef<HTMLElement>>('socialProvidersNode');
+  authButtonId = 'authenticateWebAuthnButton';
 
   isLoginButtonDisabled = signal(false);
 }

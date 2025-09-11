@@ -1,0 +1,15 @@
+<div
+  id="kc-form-options"
+  [kcClass]="'kcFormOptionsClass'"
+>
+  <div [kcClass]="'kcFormOptionsWrapperClass'">
+    <mat-checkbox
+      id="logout-sessions"
+      name="logout-sessions"
+      value="on"
+      [checked]="true"
+    >
+      {{ i18n.msgStr('logoutOtherSessions') }}
+    </mat-checkbox>
+  </div>
+</div>

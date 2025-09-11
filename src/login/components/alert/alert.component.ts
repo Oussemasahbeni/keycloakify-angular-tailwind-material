@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { FuseAlertAppearance, FuseAlertType } from './alert.types';
+import { AlertAppearance, AlertType } from './alert.types';
 
 @Component({
   selector: 'kc-alert',
@@ -10,31 +10,19 @@ import { FuseAlertAppearance, FuseAlertType } from './alert.types';
   styleUrls: ['./alert.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'fuseAlert',
+  host: {
+    '[class.alert-appearance-border]': "appearance() === 'border'",
+    '[class.alert-appearance-outline]': "appearance() === 'outline'",
+    '[class.alert-show-icon]': 'showIcon()',
+    '[class.alert-type-info]': "type() === 'info'",
+    '[class.alert-type-success]': "type() === 'success'",
+    '[class.alert-type-warning]': "type() === 'warning'",
+    '[class.alert-type-error]': "type() === 'error'",
+  },
   imports: [MatIconModule, MatButtonModule],
 })
 export class AlertComponent {
-  readonly appearance = input<FuseAlertAppearance>('outline');
+  readonly appearance = input<AlertAppearance>('outline');
   readonly showIcon = input<boolean>(true);
-  readonly type = input<FuseAlertType>('info');
-  readonly dismissedChanged = output<boolean>();
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Accessors
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Host binding for component classes
-   */
-  @HostBinding('class') get classList(): unknown {
-    return {
-      'fuse-alert-appearance-border': this.appearance() === 'border',
-      'fuse-alert-appearance-outline': this.appearance() === 'outline',
-      'fuse-alert-show-icon': this.showIcon(),
-      'fuse-alert-type-info': this.type() === 'info',
-      'fuse-alert-type-success': this.type() === 'success',
-      'fuse-alert-type-warning': this.type() === 'warning',
-      'fuse-alert-type-error': this.type() === 'error',
-    };
-  }
+  readonly type = input<AlertType>('info');
 }

@@ -30,6 +30,54 @@ export async function getKcPage(pageId: KcContext['pageId']): Promise<KcPage> {
         doUseDefaultCss,
         classes,
       };
+    case 'login-password.ftl':
+      return {
+        PageComponent: (await import('./pages/login-password/login-password.component')).LoginPasswordComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'webauthn-authenticate.ftl':
+      return {
+        PageComponent: (await import('./pages/webauthn-authenticate/webauthn-authenticate.component'))
+          .WebauthnAuthenticateComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'webauthn-register.ftl':
+      return {
+        PageComponent: (await import('./pages/webauthn-register/webauthn-register.component'))
+          .WebauthnRegisterComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+
+    case 'info.ftl':
+      return {
+        PageComponent: (await import('./pages/info/info.component')).InfoComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'error.ftl':
+      return {
+        PageComponent: (await import('./pages/error/error.component')).ErrorComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
     case 'register.ftl':
       return {
         PageComponent: (await import('./pages/register/register.component')).RegisterComponent,

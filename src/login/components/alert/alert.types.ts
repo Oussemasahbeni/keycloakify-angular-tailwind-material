@@ -1,3 +1,3 @@
-export type FuseAlertAppearance = 'border' | 'outline';
+export type AlertAppearance = 'border' | 'outline';
 
-export type FuseAlertType = 'info' | 'success' | 'warning' | 'error';
+export type AlertType = 'info' | 'success' | 'warning' | 'error';
