@@ -1,0 +1,63 @@
+@let code = kcContext.code;
+
+<ng-template #headerNode>
+  @let code = kcContext.code;
+  <div class="leading-tight tracking-tight mb-4">
+    @if (code.success) {
+      <span class="text-lg font-semibold">{{ i18n.msgStr('codeSuccessTitle') }}</span>
+    } @else {
+      <span class="text-lg font-semibold">{{ i18n.msgStr('codeErrorTitle', code.error) }}</span>
+    }
+  </div>
+</ng-template>
+
+<div
+  id="kc-code"
+  class="space-y-4"
+>
+  @if (code.success) {
+    <kc-alert
+      [appearance]="'outline'"
+      [type]="'success'"
+      class="mb-4"
+    >
+      <span [innerHTML]="i18n.msgStr('copyCodeInstruction') | kcSanitize: 'html'"></span>
+    </kc-alert>
+
+    <div class="space-y-4">
+      <mat-form-field
+        appearance="outline"
+        class="w-full"
+      >
+        <mat-label>{{ i18n.msgStr('codeLabel') }}</mat-label>
+        <input
+          matInput
+          id="code"
+          name="code"
+          type="text"
+          readonly
+          [value]="code.code"
+          class="font-mono"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          class="me-2"
+          [attr.aria-label]="i18n.msgStr('copyToClipboard')"
+          (click)="copyToClipboard(code.code || '')"
+        >
+          <mat-icon svgIcon="heroicons_outline:clipboard"></mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  } @else {
+    <kc-alert
+      [appearance]="'outline'"
+      [type]="'error'"
+      class="mb-4"
+    >
+      <span id="error">{{ code.error }}</span>
+    </kc-alert>
+  }
+</div>

@@ -118,6 +118,242 @@ export async function getKcPage(pageId: KcContext['pageId']): Promise<KcPage> {
         doUseDefaultCss,
         classes,
       };
+    case 'login-oauth-grant.ftl':
+      return {
+        PageComponent: (await import('./pages/login-oauth-grant/login-oauth-grant.component')).LoginOauthGrantComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-otp.ftl':
+      return {
+        PageComponent: (await import('./pages/login-otp/login-otp.component')).LoginOtpComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-update-password.ftl':
+      return {
+        PageComponent: (await import('./pages/login-update-password/login-update-password.component'))
+          .LoginUpdatePasswordComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-update-profile.ftl':
+      return {
+        PageComponent: (await import('./pages/login-update-profile/login-update-profile.component'))
+          .LoginUpdateProfileComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-idp-link-confirm.ftl':
+      return {
+        PageComponent: (await import('./pages/login-idp-link-confirm/login-idp-link-confirm.component'))
+          .LoginIdpLinkConfirmComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-idp-link-email.ftl':
+      return {
+        PageComponent: (await import('./pages/login-idp-link-email/login-idp-link-email.component'))
+          .LoginIdpLinkEmailComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-page-expired.ftl':
+      return {
+        PageComponent: (await import('./pages/login-page-expired/login-page-expired.component'))
+          .LoginPageExpiredComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-config-totp.ftl':
+      return {
+        PageComponent: (await import('./pages/login-config-totp/login-config-totp.component')).LoginConfigTotpComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'logout-confirm.ftl':
+      return {
+        PageComponent: (await import('./pages/logout-confirm/logout-confirm.component')).LogoutConfirmComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'idp-review-user-profile.ftl':
+      return {
+        PageComponent: (await import('./pages/idp-review-user-profile/idp-review-user-profile.component'))
+          .IdpReviewUserProfileComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'update-email.ftl':
+      return {
+        PageComponent: (await import('./pages/update-email/update-email.component')).UpdateEmailComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'select-authenticator.ftl':
+      return {
+        PageComponent: (await import('./pages/select-authenticator/select-authenticator.component'))
+          .SelectAuthenticatorComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'saml-post-form.ftl':
+      return {
+        PageComponent: (await import('./pages/saml-post-form/saml-post-form.component')).SamlPostFormComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'delete-credential.ftl':
+      return {
+        PageComponent: (await import('./pages/delete-credential/delete-credential.component'))
+          .DeleteCredentialComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'code.ftl':
+      return {
+        PageComponent: (await import('./pages/code/code.component')).CodeComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'delete-account-confirm.ftl':
+      return {
+        PageComponent: (await import('./pages/delete-account-confirm/delete-account-confirm.component'))
+          .DeleteAccountConfirmComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'frontchannel-logout.ftl':
+      return {
+        PageComponent: (await import('./pages/frontchannel-logout/frontchannel-logout.component'))
+          .FrontchannelLogoutComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-recovery-authn-code-config.ftl':
+      return {
+        PageComponent: (
+          await import('./pages/login-recovery-authn-code-config/login-recovery-authn-code-config.component')
+        ).LoginRecoveryAuthnCodeConfigComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-recovery-authn-code-input.ftl':
+      return {
+        PageComponent: (
+          await import('./pages/login-recovery-authn-code-input/login-recovery-authn-code-input.component')
+        ).LoginRecoveryAuthnCodeInputComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-reset-otp.ftl':
+      return {
+        PageComponent: (await import('./pages/login-reset-otp/login-reset-otp.component')).LoginResetOtpComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-x509-info.ftl':
+      return {
+        PageComponent: (await import('./pages/login-x509-info/login-x509-info.component')).LoginX509InfoComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'webauthn-error.ftl':
+      return {
+        PageComponent: (await import('./pages/webauthn-error/webauthn-error.component')).WebauthnErrorComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-passkeys-conditional-authenticate.ftl':
+      return {
+        PageComponent: (
+          await import(
+            './pages/login-passkeys-conditional-authenticate/login-passkeys-conditional-authenticate.component'
+          )
+        ).LoginPasskeysConditionalAuthenticateComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
+    case 'login-idp-link-confirm-override.ftl':
+      return {
+        PageComponent: (
+          await import('./pages/login-idp-link-confirm-override/login-idp-link-confirm-override.component')
+        ).LoginIdpLinkConfirmOverrideComponent,
+        TemplateComponent,
+        UserProfileFormFieldsComponent,
+        doMakeUserConfirmPassword,
+        doUseDefaultCss,
+        classes,
+      };
     case 'register.ftl':
       return {
         PageComponent: (await import('./pages/register/register.component')).RegisterComponent,

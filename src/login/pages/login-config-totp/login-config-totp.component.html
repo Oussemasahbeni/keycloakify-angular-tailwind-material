@@ -1,0 +1,342 @@
+@let totp = kcContext.totp;
+@let url = kcContext.url;
+@let messagesPerField = kcContext.messagesPerField;
+@let mode = kcContext.mode;
+@let isAppInitiatedAction = kcContext.isAppInitiatedAction;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-2">
+    <span class="text-xl font-bold">{{ i18n.msgStr('loginTotpTitle') }}</span>
+  </div>
+</ng-template>
+<ol
+  id="kc-totp-settings"
+  class="list-decimal space-y-4 text-sm text-gray-700 dark:text-gray-300"
+>
+  <li class="space-y-2">
+    <p class="font-medium">{{ i18n.msgStr('loginTotpStep1') }}</p>
+    <ul
+      class="list-disc list-inside ml-4 space-y-1"
+      id="kc-totp-supported-apps"
+    >
+      @for (app of totp.supportedApplications; track app) {
+        <li class="text-blue-600 dark:text-blue-400">{{ i18n.advancedMsgStr(app) }}</li>
+      }
+    </ul>
+  </li>
+  @if (kcContext.mode === 'manual') {
+    <li>
+      <p class="font-medium">{{ i18n.msgStr('loginTotpManualStep2') }}</p>
+      <!-- <p>
+        <span id="kc-totp-secret-key">{{ totp.totpSecretEncoded }}</span>
+      </p>
+      <p>
+        <a
+          id="mode-barcode"
+          [href]="totp.qrUrl"
+        >
+          {{ i18n.msgStr('loginTotpScanBarcode') }}
+        </a>
+      </p> -->
+      <div class="bg-white mt-2 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div>
+          <span class="font-mono text-lg bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded border break-all">
+            {{ totp.totpSecretEncoded }}
+          </span>
+        </div>
+        <div class="mt-4">
+          <a
+            [href]="totp.qrUrl"
+            mat-stroked-button
+            color="primary"
+            class="text-sm"
+          >
+            {{ i18n.msgStr('loginTotpScanBarcode') }}
+          </a>
+        </div>
+      </div>
+    </li>
+    <li class="space-y-3">
+      <p class="font-medium">{{ i18n.msgStr('loginTotpManualStep3') }}</p>
+
+      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- TOTP Type -->
+          <div
+            class="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded border border-gray-100 dark:border-gray-600"
+          >
+            <mat-icon class="text-blue-600 dark:text-blue-400">security</mat-icon>
+            <div>
+              <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                {{ i18n.msgStr('loginTotpType') }}
+              </div>
+              <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                {{ i18n.advancedMsgStr('loginTotp.' + totp.policy.type) }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Algorithm -->
+          <div
+            class="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded border border-gray-100 dark:border-gray-600"
+          >
+            <mat-icon class="text-green-600 dark:text-green-400">memory</mat-icon>
+            <div>
+              <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                {{ i18n.msgStr('loginTotpAlgorithm') }}
+              </div>
+              <div class="text-sm font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                {{ totp.policy.getAlgorithmKey() }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Digits -->
+          <div
+            class="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded border border-gray-100 dark:border-gray-600"
+          >
+            <mat-icon class="text-purple-600 dark:text-purple-400">dialpad</mat-icon>
+            <div>
+              <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                {{ i18n.msgStr('loginTotpDigits') }}
+              </div>
+              <div class="text-sm font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                {{ totp.policy.digits }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Time Interval or Counter -->
+          @if (totp.policy.type === 'totp') {
+            <div
+              class="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded border border-gray-100 dark:border-gray-600"
+            >
+              <mat-icon class="text-orange-600 dark:text-orange-400">schedule</mat-icon>
+              <div>
+                <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  {{ i18n.msgStr('loginTotpInterval') }}
+                </div>
+                <div class="text-sm font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                  {{ totp.policy.period }}s
+                </div>
+              </div>
+            </div>
+          } @else {
+            <div
+              class="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded border border-gray-100 dark:border-gray-600"
+            >
+              <mat-icon class="text-orange-600 dark:text-orange-400">counter_1</mat-icon>
+              <div>
+                <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  {{ i18n.msgStr('loginTotpCounter') }}
+                </div>
+                <div class="text-sm font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                  {{ totp.policy.initialCounter }}
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </li>
+  } @else {
+    <li class="space-y-2">
+      <p class="font-medium">{{ i18n.msgStr('loginTotpStep2') }}</p>
+      <img
+        id="kc-totp-secret-qr-code"
+        alt="Figure: Barcode"
+        [src]="'data:image/png;base64, ' + totp.totpSecretQrCode"
+      />
+      <br />
+      <p>
+        <a
+          id="mode-manual"
+          [href]="totp.manualUrl"
+          matButton="outlined"
+        >
+          {{ i18n.msgStr('loginTotpUnableToScan') }}
+        </a>
+      </p>
+    </li>
+  }
+  <li class="space-y-2">
+    <p class="font-medium">{{ i18n.msgStr('loginTotpStep3') }}</p>
+    <p class="font-medium">{{ i18n.msgStr('loginTotpStep3DeviceName') }}</p>
+  </li>
+</ol>
+
+<form
+  id="kc-totp-settings-form"
+  method="post"
+  [action]="url.loginAction"
+  [kcClass]="'kcFormClass'"
+>
+  <div [kcClass]="'kcFormGroupClass'">
+    <!-- <div [kcClass]="'kcInputWrapperClass'">
+      <label
+        for="totp"
+        [kcClass]="'kcLabelClass'"
+      >
+        {{ i18n.msgStr('authenticatorCode') }}
+      </label>
+      <span class="required">*</span>
+    </div>
+    <div [kcClass]="'kcInputWrapperClass'">
+      <input
+        type="text"
+        id="totp"
+        name="totp"
+        autocomplete="off"
+        [kcClass]="'kcInputClass'"
+        [attr.aria-invalid]="messagesPerField.existsError('totp')"
+      />
+      @if (messagesPerField.existsError('totp')) {
+        <span
+          id="input-error-otp-code"
+          aria-live="polite"
+          [kcClass]="'kcInputErrorMessageClass'"
+          [innerHTML]="messagesPerField.get('totp') | kcSanitize: 'html'"
+        ></span>
+      }
+    </div> -->
+
+    <div class="space-y-4 mt-2">
+      <mat-form-field
+        appearance="outline"
+        class="w-full"
+      >
+        <mat-label>{{ i18n.msgStr('authenticatorCode') }}</mat-label>
+        <input
+          matInput
+          type="text"
+          id="totp"
+          name="totp"
+          autocomplete="off"
+          autofocus
+          required
+          placeholder="{{ i18n.msgStr('authenticatorCode') }}"
+        />
+        @if (messagesPerField?.existsError('totp')) {
+          <mat-hint class="text-error">
+            <span
+              id="input-error-otp-code"
+              aria-live="polite"
+              [innerHTML]="messagesPerField.get('totp') | kcSanitize: 'html'"
+            ></span>
+          </mat-hint>
+        }
+      </mat-form-field>
+
+      <input
+        type="hidden"
+        id="totpSecret"
+        name="totpSecret"
+        [value]="totp.totpSecret"
+      />
+      @if (mode) {
+        <input
+          type="hidden"
+          id="mode"
+          [value]="mode"
+        />
+      }
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="w-full"
+    >
+      <mat-label
+        >{{ i18n.msgStr('loginTotpDeviceName') }}
+        @if (totp.otpCredentials.length >= 1) {
+          <span class="required">*</span>
+        }
+      </mat-label>
+      <input
+        matInput
+        type="text"
+        id="userLabel"
+        name="userLabel"
+        autocomplete="off"
+        [value]="totp.otpCredentials && totp.otpCredentials.length > 0 ? totp.otpCredentials[0].userLabel : ''"
+        [placeholder]="i18n.msgStr('loginTotpDeviceName')"
+      />
+      @if (messagesPerField?.existsError('userLabel')) {
+        <mat-hint class="text-error">
+          <span
+            id="input-error-otp-label"
+            aria-live="polite"
+            [innerHTML]="messagesPerField.get('userLabel') | kcSanitize: 'html'"
+          ></span>
+        </mat-hint>
+      }
+    </mat-form-field>
+  </div>
+  <!-- <div [kcClass]="'kcFormGroupClass'">
+    <div [kcClass]="'kcInputWrapperClass'">
+      <label
+        for="userLabel"
+        [kcClass]="'kcLabelClass'"
+      >
+        {{ i18n.msgStr('loginTotpDeviceName') }}
+      </label>
+      @if (totp.otpCredentials.length >= 1) {
+        <span class="required">*</span>
+      }
+    </div>
+    <div [kcClass]="'kcInputWrapperClass'">
+      <input
+        type="text"
+        id="userLabel"
+        name="userLabel"
+        autocomplete="off"
+        [kcClass]="'kcInputClass'"
+        [attr.aria-invalid]="messagesPerField.existsError('userLabel')"
+      />
+      @if (messagesPerField.existsError('userLabel')) {
+        <span
+          id="input-error-otp-label"
+          aria-live="polite"
+          [kcClass]="'kcInputErrorMessageClass'"
+          [innerHTML]="messagesPerField.get('userLabel') | kcSanitize: 'html'"
+        ></span>
+      }
+    </div>
+  </div> -->
+
+  <div [kcClass]="'kcFormGroupClass'">
+    <kc-logout-other-sessions />
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-col sm:flex-row gap-3 mt-1">
+    @if (isAppInitiatedAction) {
+      <button
+        type="submit"
+        matButton="filled"
+        color="primary"
+        class="flex-1"
+      >
+        {{ i18n.msgStr('doSubmit') }}
+      </button>
+      <button
+        type="submit"
+        matButton="outlined"
+        name="cancel-aia"
+        value="true"
+        class="flex-1"
+      >
+        {{ i18n.msgStr('doCancel') }}
+      </button>
+    } @else {
+      <button
+        type="submit"
+        matButton="filled"
+        color="primary"
+        class="w-full"
+      >
+        {{ i18n.msgStr('doSubmit') }}
+      </button>
+    }
+  </div>
+</form>

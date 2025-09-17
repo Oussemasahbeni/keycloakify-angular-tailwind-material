@@ -16,6 +16,12 @@ const { getI18n, ofTypeI18n } = i18nBuilder
       dark: 'Sombre',
       light: 'Lumière',
       system: 'Système',
+      codeCopyToClipboardSuccess: 'Code copié dans le presse-papiers',
+      close: 'Fermer',
+      codeLabel: 'Code de vérification',
+      loggingOut: 'Déconnexion...',
+      loggedOut: 'Déconnecté',
+      copyToClipboard: 'Copier dans le presse-papiers',
     },
     en: {
       noAccount: "Don't have an account?",
@@ -27,6 +33,12 @@ const { getI18n, ofTypeI18n } = i18nBuilder
       dark: 'Dark',
       light: 'Light',
       system: 'System',
+      codeCopyToClipboardSuccess: 'Code copied to clipboard',
+      close: 'Close',
+      codeLabel: 'Verification Code',
+      loggingOut: 'Logging out...',
+      loggedOut: 'Logged out',
+      copyToClipboard: 'Copy to clipboard',
     },
     ar: {
       noAccount: 'ليس لديك حساب؟',
@@ -38,6 +50,12 @@ const { getI18n, ofTypeI18n } = i18nBuilder
       dark: 'داكن',
       light: 'فاتح',
       system: 'النظام',
+      codeCopyToClipboardSuccess: 'تم نسخ الرمز إلى الحافظة',
+      close: 'إغلاق',
+      codeLabel: 'رمز التحقق',
+      loggingOut: 'جاري تسجيل الخروج...',
+      loggedOut: 'تم تسجيل الخروج',
+      copyToClipboard: 'نسخ إلى الحافظة',
     },
   })
   .build();

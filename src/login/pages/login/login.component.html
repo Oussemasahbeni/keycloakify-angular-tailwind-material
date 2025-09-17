@@ -79,7 +79,7 @@
       <form
         id="kc-form-login"
         method="post"
-        class="space-y-2!"
+        class="space-y-5!"
         [action]="url?.loginAction"
         (onSubmit)="isLoginButtonDisabled.set(true)"
       >
@@ -88,6 +88,9 @@
             <mat-form-field
               appearance="outline"
               class="w-full"
+              [ngClass]="{
+                'mat-form-field-invalid! ng-invalid!': messagesPerField?.existsError('username', 'password'),
+              }"
             >
               <mat-label for="username">
                 @if (!realm?.loginWithEmailAllowed) {

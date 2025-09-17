@@ -1,0 +1,132 @@
+@let client = kcContext.client;
+@let oauth = kcContext.oauth;
+@let url = kcContext.url;
+
+<ng-template #headerNode>
+  @let client = kcContext.client;
+  @if (client.attributes['logoUri']) {
+    <img
+      alt=""
+      [src]="client.attributes['logoUri']"
+    />
+  }
+
+  <div class="leading-tight tracking-tight mb-2">
+    <span class="text-xl font-bold">
+      {{ i18n.msgStr('oauthGrantTitle', client.name ? i18n.advancedMsgStr(client.name) : client.clientId) }}</span
+    >
+  </div>
+</ng-template>
+
+<mat-card class="p-4 mt-3">
+  <mat-card-content>
+    <div class="mb-6">
+      <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        {{ i18n.msgStr('oauthGrantRequest') }}
+      </h2>
+    </div>
+
+    <!-- Permissions List -->
+    <div class="mb-6">
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+        {{ i18n.msgStr('oauthGrantInformation', client.name ? i18n.advancedMsgStr(client.name) : client.clientId) }}
+      </p>
+
+      @if (oauth.clientScopesRequested.length > 0) {
+        <mat-list class="bg-gray-50 dark:bg-gray-800 rounded-lg">
+          @for (clientScope of oauth.clientScopesRequested; track clientScope) {
+            <mat-list-item class="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+              <mat-icon
+                matListItemIcon
+                class="text-blue-600 dark:text-blue-400"
+              >
+                check_circle
+              </mat-icon>
+              <div
+                matListItemTitle
+                class="text-sm text-gray-700 dark:text-gray-300"
+              >
+                {{ i18n.advancedMsgStr(clientScope.consentScreenText) }}
+                @if (clientScope.dynamicScopeParameter) {
+                  <span class="font-semibold text-gray-900 dark:text-gray-100">
+                    : {{ clientScope.dynamicScopeParameter }}
+                  </span>
+                }
+              </div>
+            </mat-list-item>
+          }
+        </mat-list>
+      }
+    </div>
+
+    <!-- Policy and Terms Links -->
+    @if (client.attributes['policyUri'] || client.attributes['tosUri']) {
+      <div class="mb-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+        <div class="flex items-start space-x-2">
+          <mat-icon class="text-blue-600 dark:text-blue-400 mt-0.5">info</mat-icon>
+          <div class="text-sm text-blue-800 dark:text-blue-200">
+            @if (client.attributes['policyUri']) {
+              <p class="mb-2">
+                {{ i18n.msgStr('oauthGrantReview') }}
+                <a
+                  target="_blank"
+                  [href]="client.attributes['policyUri']"
+                  class="font-medium underline hover:no-underline"
+                >
+                  {{ i18n.msgStr('oauthGrantPolicy') }}
+                </a>
+              </p>
+            }
+            @if (client.attributes['tosUri']) {
+              <p>
+                {{ i18n.msgStr('oauthGrantReview') }}
+                <a
+                  target="_blank"
+                  [href]="client.attributes['tosUri']"
+                  class="font-medium underline hover:no-underline"
+                >
+                  {{ i18n.msgStr('oauthGrantTos') }}
+                </a>
+              </p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Action Form -->
+    <form
+      method="post"
+      [action]="url.oauthAction"
+      class="space-y-4"
+    >
+      <input
+        type="hidden"
+        name="code"
+        [value]="oauth.code"
+      />
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          type="submit"
+          matButton="filled"
+          class="flex-1"
+          [value]="i18n.msgStr('doYes')"
+        >
+          <mat-icon class="mr-2">check</mat-icon>
+          {{ i18n.msgStr('doYes') }}
+        </button>
+
+        <button
+          type="submit"
+          matButton="outlined"
+          class="flex-1 outline-button-error"
+          [value]="i18n.msgStr('doNo')"
+        >
+          <mat-icon class="mr-2">close</mat-icon>
+          {{ i18n.msgStr('doNo') }}
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

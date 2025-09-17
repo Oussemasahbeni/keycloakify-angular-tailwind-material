@@ -1,0 +1,39 @@
+@let url = kcContext.url;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-2xl font-semibold">{{ i18n.msgStr('pageExpiredTitle') }}</span>
+  </div>
+</ng-template>
+
+<!-- Page Expired Information Card -->
+<div class="mt-3">
+  <kc-alert
+    class="mb-4"
+    [appearance]="'outline'"
+    type="warning"
+  >
+    <p class="text-sm">
+      {{ i18n.msgStr('pageExpiredMsg1') }}
+      <a
+        id="loginRestartLink"
+        [href]="url.loginRestartFlowUrl"
+        class="font-medium transition-colors text-blue-700 dark:text-blue-900"
+      >
+        {{ i18n.msgStr('doClickHere') }}
+      </a>
+      .
+    </p>
+    <p class="text-sm mt-2">
+      {{ i18n.msgStr('pageExpiredMsg2') }}
+      <a
+        id="loginContinueLink"
+        [href]="url.loginAction"
+        class="font-medium transition-colors text-blue-700 dark:text-blue-900"
+      >
+        {{ i18n.msgStr('doClickHere') }}
+      </a>
+      .
+    </p>
+  </kc-alert>
+</div>

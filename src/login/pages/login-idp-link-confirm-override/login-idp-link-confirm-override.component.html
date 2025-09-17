@@ -1,0 +1,41 @@
+@let url = kcContext.url;
+@let idpDisplayName = kcContext.idpDisplayName;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-2">
+    <span class="text-xl font-bold">{{ i18n.msgStr('confirmOverrideIdpTitle') }}</span>
+  </div>
+</ng-template>
+
+<div class="max-w-md mt-3">
+  <form
+    id="kc-register-form"
+    method="post"
+    [action]="url.loginAction"
+    class="space-y-4"
+  >
+    <div class="text-gray-600 dark:text-gray-300 text-sm space-y-2">
+      <p>
+        {{ i18n.msgStr('pageExpiredMsg1') }}
+        <a
+          id="loginRestartLink"
+          [href]="url.loginRestartFlowUrl"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          {{ i18n.msgStr('doClickHere') }}
+        </a>
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      name="submitAction"
+      id="confirmOverride"
+      value="confirmOverride"
+      matButton="outlined"
+      class="w-full"
+    >
+      {{ i18n.msgStr('confirmOverrideIdpContinue', idpDisplayName) }}
+    </button>
+  </form>
+</div>

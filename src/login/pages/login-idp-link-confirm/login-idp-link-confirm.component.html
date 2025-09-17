@@ -1,0 +1,45 @@
+@let url = kcContext.url;
+@let idpAlias = kcContext.idpAlias;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-2">
+    <span class="text-xl font-bold">{{ i18n.msgStr('confirmLinkIdpTitle') }}</span>
+  </div>
+</ng-template>
+
+<mat-card class="p-6 mt-4">
+  <mat-card-content>
+    <form
+      id="kc-register-form"
+      method="post"
+      [action]="url.loginAction"
+      class="space-y-4"
+    >
+      <div class="space-y-3">
+        <button
+          type="submit"
+          name="submitAction"
+          id="updateProfile"
+          value="updateProfile"
+          matButton="outlined"
+          class="w-full"
+        >
+          <mat-icon class="mr-2">person</mat-icon>
+          {{ i18n.msgStr('confirmLinkIdpReviewProfile') }}
+        </button>
+
+        <button
+          type="submit"
+          name="submitAction"
+          id="linkAccount"
+          value="linkAccount"
+          matButton="outlined"
+          class="w-full"
+        >
+          <mat-icon class="mr-2">link</mat-icon>
+          {{ i18n.msgStr('confirmLinkIdpContinue', idpAlias) }}
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

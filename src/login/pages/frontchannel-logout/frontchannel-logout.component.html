@@ -1,0 +1,67 @@
+@let logout = kcContext.logout;
+
+<ng-template #headerNode>
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-semibold">{{ i18n.msgStr('frontchannel-logout.title') }}</span>
+  </div>
+</ng-template>
+
+<div class="space-y-6">
+  <kc-alert
+    [appearance]="'outline'"
+    [type]="'info'"
+    class="mb-6"
+  >
+    <span [innerHTML]="i18n.msgStr('frontchannel-logout.message') | kcSanitize: 'html'"></span>
+  </kc-alert>
+
+  @if (logout.clients.length > 0) {
+    <div class="bg-surface-container rounded-lg p-4">
+      <div class="space-y-2">
+        @for (client of logout.clients; track client.name) {
+          <div
+            class="flex items-center justify-between p-3 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-center space-x-3">
+              <mat-icon class="text-gray-400 dark:text-gray-300">web</mat-icon>
+              <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ client.name }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              @if (iframeLoadCount() < logout.clients.length) {
+                <mat-spinner diameter="20"></mat-spinner>
+                <span class="text-xs text-gray-500 dark:text-gray-400">{{ i18n.msgStr('loggingOut') }}</span>
+              } @else {
+                <mat-icon
+                  class="text-green-500 dark:text-green-400"
+                  svgIcon="mat_outline:check_circle"
+                ></mat-icon>
+
+                <span class="text-xs text-green-600 dark:text-green-400">{{ i18n.msgStr('loggedOut') }}</span>
+              }
+            </div>
+            <iframe
+              style="display: none"
+              [src]="client.frontChannelLogoutUrl | kcSanitize: 'resourceUrl'"
+              (load)="onIframeLoaded()"
+            ></iframe>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (logout.logoutRedirectUri !== undefined) {
+    <div class="flex justify-center pt-4">
+      <a
+        mat-raised-button
+        color="primary"
+        id="continue"
+        [href]="logout.logoutRedirectUri"
+        class="min-w-32"
+      >
+        <mat-icon class="mr-2">arrow_forward</mat-icon>
+        {{ i18n.msgStr('doContinue') }}
+      </a>
+    </div>
+  }
+</div>

@@ -2,11 +2,6 @@
   <!-- Icon -->
   @if (showIcon()) {
     <div class="alert-icon">
-      <!-- Custom icon -->
-      <div class="alert-custom-icon">
-        <ng-content select="[alertIcon]"></ng-content>
-      </div>
-
       <!-- Default icons -->
       <div class="alert-default-icon">
         @if (type() === 'info') {
