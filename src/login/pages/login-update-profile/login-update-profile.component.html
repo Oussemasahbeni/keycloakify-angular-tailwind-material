@@ -2,7 +2,9 @@
 @let isAppInitiatedAction = kcContext.isAppInitiatedAction;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('loginProfileTitle') }}
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-bold">{{ i18n.msgStr('loginProfileTitle') }}</span>
+  </div>
 </ng-template>
 <form
   id="kc-update-profile-form"
@@ -22,24 +24,22 @@
       id="kc-form-buttons"
       [kcClass]="'kcFormButtonsClass'"
     >
-      <input
+      <button
         type="submit"
+        matButton="filled"
+        class="w-full"
         [disabled]="!isFormSubmittable()"
-        [kcClass]="{
-          kcButtonClass: true,
-          kcButtonPrimaryClass: true,
-          kcButtonBlockClass: !isAppInitiatedAction,
-          kcButtonLargeClass: true,
-        }"
-        [value]="i18n.msgStr('doSubmit')"
-      />
+      >
+        {{ i18n.msgStr('doSubmit') }}
+      </button>
       @if (isAppInitiatedAction) {
         <button
           type="submit"
           name="cancel-aia"
           value="true"
           formNoValidate
-          [kcClass]="['kcButtonClass', 'kcButtonDefaultClass', 'kcButtonLargeClass']"
+          matButton="outlined"
+          class="w-full outline-button-error"
         >
           {{ i18n.msgStr('doCancel') }}
         </button>

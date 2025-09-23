@@ -2,58 +2,67 @@
 @let configuredOtpCredentials = kcContext.configuredOtpCredentials;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('doLogIn') }}
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-bold">{{ i18n.msgStr('doLogIn') }}</span>
+  </div>
 </ng-template>
 
 <form
   id="kc-otp-reset-form"
   method="post"
-  [kcClass]="'kcFormClass'"
+  class="space-y-6"
   [action]="url.loginAction"
 >
-  <div [kcClass]="'kcInputWrapperClass'">
-    <div [kcClass]="'kcInfoAreaWrapperClass'">
-      <p id="kc-otp-reset-form-description">
+  <div class="space-y-4">
+    <kc-alert
+      [appearance]="'outline'"
+      type="info"
+    >
+      <p class="text-sm">
         {{ i18n.msgStr('otp-reset-description') }}
       </p>
+    </kc-alert>
+
+    <!-- OTP Credentials List -->
+    <mat-radio-group
+      name="selectedCredentialId"
+      [value]="configuredOtpCredentials.selectedCredentialId"
+      class="flex flex-col space-y-3"
+    >
       @for (otpCredential of configuredOtpCredentials.userOtpCredentials; track otpCredential; let i = $index) {
-        <input
-          type="radio"
+        <mat-radio-button
+          [value]="otpCredential.id"
           name="selectedCredentialId"
           [id]="'kc-otp-credential-' + i"
-          [kcClass]="'kcLoginOTPListInputClass'"
-          [value]="otpCredential.id"
-          [defaultChecked]="otpCredential.id === configuredOtpCredentials.selectedCredentialId"
-        />
-        <label
-          for="kc-otp-credential-0"
-          [kcClass]="'kcLoginOTPListClass'"
-          [tabIndex]="i"
+          class="w-full"
+          [checked]="otpCredential.id === configuredOtpCredentials.selectedCredentialId"
         >
-          <span [kcClass]="'kcLoginOTPListItemHeaderClass'">
-            <span [kcClass]="'kcLoginOTPListItemIconBodyClass'">
-              <i
-                aria-hidden="true"
-                [kcClass]="'kcLoginOTPListItemIconClass'"
-              ></i>
-            </span>
-            <span [kcClass]="'kcLoginOTPListItemTitleClass'">{{ otpCredential.userLabel }}</span>
-          </span>
-        </label>
+          <div class="flex items-center space-x-3 py-2">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <mat-icon class="text-gray-600 text-base">security</mat-icon>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium text-gray-900">
+                {{ otpCredential.userLabel }}
+              </div>
+            </div>
+          </div>
+        </mat-radio-button>
       }
-      <div [kcClass]="'kcFormGroupClass'">
-        <div
-          id="kc-form-buttons"
-          [kcClass]="'kcFormButtonsClass'"
-        >
-          <input
-            id="kc-otp-reset-form-submit"
-            type="submit"
-            [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-            [value]="i18n.msgStr('doSubmit')"
-          />
-        </div>
-      </div>
+    </mat-radio-group>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button
+        matButton="filled"
+        id="kc-otp-reset-form-submit"
+        type="submit"
+        class="w-full"
+      >
+        {{ i18n.msgStr('doSubmit') }}
+      </button>
     </div>
   </div>
 </form>

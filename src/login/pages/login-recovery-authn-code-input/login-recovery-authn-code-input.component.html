@@ -3,64 +3,53 @@
 @let messagesPerField = kcContext.messagesPerField;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('auth-recovery-code-header') }}
+  <div class="leading-tight tracking-tight mb-4">
+    <span class="text-lg font-bold">{{ i18n.msgStr('auth-recovery-code-header') }}</span>
+  </div>
 </ng-template>
 
 <form
   id="kc-recovery-code-login-form"
   method="post"
-  [kcClass]="'kcFormClass'"
   [action]="url.loginAction"
+  class="space-y-4"
 >
-  <div [kcClass]="'kcFormGroupClass'">
-    <div [kcClass]="'kcLabelWrapperClass'">
-      <label
-        for="recoveryCodeInput"
-        [kcClass]="'kcLabelClass'"
-      >
-        {{ i18n.msgStr('auth-recovery-code-prompt', recoveryAuthnCodesInputBean.codeNumber.toString()) }}
-      </label>
-    </div>
-    <div [kcClass]="'kcInputWrapperClass'">
-      <input
-        tabIndex="1"
-        id="recoveryCodeInput"
-        name="recoveryCodeInput"
-        autocomplete="off"
-        type="text"
-        autofocus
-        [attr.aria-invalid]="messagesPerField.existsError('recoveryCodeInput')"
-        [kcClass]="'kcInputClass'"
-      />
-      @if (messagesPerField.existsError('recoveryCodeInput')) {
-        <span
-          id="input-error"
-          aria-live="polite"
-          [kcClass]="'kcInputErrorMessageClass'"
-          [innerHTML]="messagesPerField.get('recoveryCodeInput') | kcSanitize: 'html'"
-        ></span>
-      }
-    </div>
-  </div>
+  <!-- Recovery Code Input -->
+  <mat-form-field
+    appearance="outline"
+    class="w-full"
+  >
+    <mat-label>
+      {{ i18n.msgStr('auth-recovery-code-prompt', recoveryAuthnCodesInputBean.codeNumber.toString()) }}
+    </mat-label>
+    <input
+      matInput
+      tabIndex="1"
+      id="recoveryCodeInput"
+      name="recoveryCodeInput"
+      autocomplete="off"
+      type="text"
+      autofocus
+      [attr.aria-invalid]="messagesPerField.existsError('recoveryCodeInput')"
+      class="font-mono tracking-widest"
+    />
+    @if (messagesPerField.existsError('recoveryCodeInput')) {
+      <mat-error
+        id="input-error"
+        aria-live="polite"
+        [innerHTML]="messagesPerField.get('recoveryCodeInput') | kcSanitize: 'html'"
+      ></mat-error>
+    }
+  </mat-form-field>
 
-  <div [kcClass]="'kcFormGroupClass'">
-    <div
-      id="kc-form-options"
-      [kcClass]="'kcFormOptionsWrapperClass'"
-    >
-      <div [kcClass]="'kcFormOptionsWrapperClass'"></div>
-    </div>
-    <div
-      id="kc-form-buttons"
-      [kcClass]="'kcFormButtonsClass'"
-    >
-      <input
-        name="login"
-        id="kc-login"
-        type="submit"
-        [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-        [value]="i18n.msgStr('doLogIn')"
-      />
-    </div>
-  </div>
+  <!-- Submit Button -->
+  <button
+    matButton="filled"
+    name="login"
+    id="kc-login"
+    type="submit"
+    class="w-full"
+  >
+    {{ i18n.msgStr('doLogIn') }}
+  </button>
 </form>

@@ -6,23 +6,34 @@
 @let messagesPerField = kcContext.messagesPerField;
 @let usernameHidden = kcContext.usernameHidden;
 @let registrationDisabled = kcContext.registrationDisabled;
+
 <ng-template #headerNode>
-  {{ i18n.msgStr('passkey-login-title') }}
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-2xl font-semibold">{{ i18n.msgStr('passkey-login-title') }}</span>
+  </div>
 </ng-template>
+
 <ng-template #infoNode>
-  @let realm = kcContext.realm;
   @let url = kcContext.url;
+  @let realm = kcContext.realm;
+
   @if (realm.registrationAllowed && !registrationDisabled) {
-    <div id="kc-registration">
-      <span>
-        {{ i18n.msgStr('noAccount') }}
-        <a
-          tabIndex="6"
-          [href]="url.registrationUrl"
-        >
-          {{ i18n.msgStr('doRegister') }}
-        </a>
-      </span>
+    <div id="kc-registration-container">
+      <div
+        id="kc-registration"
+        class="text-start"
+      >
+        <span>
+          {{ i18n.msgStr('noAccount') }}
+          <a
+            tabindex="8"
+            class="font-bold! text-primary"
+            [href]="url?.registrationUrl"
+          >
+            {{ i18n.msgStr('doRegister') }}
+          </a>
+        </span>
+      </div>
     </div>
   }
 </ng-template>
@@ -190,13 +201,14 @@
         style="display: none"
         [kcClass]="'kcFormButtonsClass'"
       >
-        <input
+        <button
           id="authButtonId"
           type="button"
           autofocus
-          [value]="i18n.msgStr('passkey-doAuthenticate')"
-          [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-        />
+          matButton="outlined"
+        >
+          {{ i18n.msgStr('passkey-doAuthenticate') }}
+        </button>
       </div>
     }
   </div>

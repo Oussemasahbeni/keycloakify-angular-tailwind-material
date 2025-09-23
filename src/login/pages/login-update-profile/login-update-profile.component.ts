@@ -10,21 +10,22 @@ import {
   viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { USE_DEFAULT_CSS } from '@keycloakify/angular/lib/tokens/use-default-css';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
-import { UserProfileFormFieldsComponent } from '../../components/user-profile-form-fields/user-profile-form-fields.component';
 import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
-import type { I18n } from '../../i18n';
-import type { KcContext } from '../../KcContext';
 import { UserProfileFormService } from '@keycloakify/angular/login/services/user-profile-form';
 import { LOGIN_CLASSES } from '@keycloakify/angular/login/tokens/classes';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import type { ClassKey } from 'keycloakify/login/lib/kcClsx';
 import { map } from 'rxjs';
+import { UserProfileFormFieldsComponent } from '../../components/user-profile-form-fields/user-profile-form-fields.component';
+import type { I18n } from '../../i18n';
+import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, NgComponentOutlet],
+  imports: [KcClassDirective, NgComponentOutlet, MatButtonModule],
   selector: 'kc-login-update-profile',
   templateUrl: 'login-update-profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

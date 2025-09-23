@@ -4,6 +4,7 @@
 @let messagesPerField = kcContext.messagesPerField;
 @let url = kcContext.url;
 @let login = kcContext.login;
+@let registrationDisabled = kcContext.registrationDisabled;
 
 <ng-template #headerNode>
   <div class="leading-tight tracking-tight flex flex-col mb-2">
@@ -17,23 +18,27 @@
 </ng-template>
 <ng-template #infoNode>
   @let url = kcContext.url;
-  <div id="kc-registration-container">
-    <div
-      id="kc-registration"
-      class="text-start"
-    >
-      <span>
-        {{ i18n.msgStr('noAccount') }}
-        <a
-          tabindex="8"
-          class="font-bold! text-primary"
-          [href]="url?.registrationUrl"
-        >
-          {{ i18n.msgStr('doRegister') }}
-        </a>
-      </span>
+  @let realm = kcContext.realm;
+
+  @if (realm.registrationAllowed && !registrationDisabled) {
+    <div id="kc-registration-container">
+      <div
+        id="kc-registration"
+        class="text-start"
+      >
+        <span>
+          {{ i18n.msgStr('noAccount') }}
+          <a
+            tabindex="8"
+            class="font-bold! text-primary"
+            [href]="url?.registrationUrl"
+          >
+            {{ i18n.msgStr('doRegister') }}
+          </a>
+        </span>
+      </div>
     </div>
-  </div>
+  }
 </ng-template>
 <ng-template #socialProvidersNode>
   @let realm = kcContext.realm;
@@ -151,18 +156,10 @@
               "
               matSuffix
             >
-              @if (passwordField.type === 'password') {
-                <mat-icon
-                  class="icon-size-5"
-                  [svgIcon]="'heroicons_solid:eye'"
-                ></mat-icon>
-              }
-              @if (passwordField.type === 'text') {
-                <mat-icon
-                  class="icon-size-5"
-                  [svgIcon]="'heroicons_solid:eye-slash'"
-                ></mat-icon>
-              }
+              <mat-icon
+                class="icon-size-5"
+                [svgIcon]="passwordField.type === 'password' ? 'heroicons_solid:eye' : 'heroicons_solid:eye-slash'"
+              ></mat-icon>
             </button>
             @if (messagesPerField?.existsError('username', 'password')) {
               <mat-hint class="text-error">
