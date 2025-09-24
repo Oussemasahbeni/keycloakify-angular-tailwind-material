@@ -10,19 +10,19 @@ import {
   viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
-import { LogoutOtherSessionsComponent } from '../../components/logout-other-sessions/logout-other-sessions.component';
-import { UserProfileFormFieldsComponent } from '../../components/user-profile-form-fields/user-profile-form-fields.component';
-import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
-import type { I18n } from '../../i18n';
-import type { KcContext } from '../../KcContext';
 import { UserProfileFormService } from '@keycloakify/angular/login/services/user-profile-form';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import { map } from 'rxjs';
+import { LogoutOtherSessionsComponent } from '../../components/logout-other-sessions/logout-other-sessions.component';
+import { UserProfileFormFieldsComponent } from '../../components/user-profile-form-fields/user-profile-form-fields.component';
+import type { I18n } from '../../i18n';
+import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, NgComponentOutlet, LogoutOtherSessionsComponent],
+  imports: [MatButtonModule, NgComponentOutlet, LogoutOtherSessionsComponent],
   selector: 'kc-update-email',
   templateUrl: 'update-email.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

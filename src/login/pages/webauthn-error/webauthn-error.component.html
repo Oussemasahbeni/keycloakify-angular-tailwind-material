@@ -2,49 +2,67 @@
 @let isAppInitiatedAction = kcContext.isAppInitiatedAction;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('webauthn-error-title') }}
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-2xl font-bold">{{ i18n.msgStr('webauthn-error-title') }}</span>
+  </div>
 </ng-template>
-<form
-  id="kc-error-credential-form"
-  method="post"
-  [kcClass]="'kcFormClass'"
-  [action]="url.loginAction"
+
+<div
+  id="kc-form"
+  class="mt-6"
 >
-  <input
-    type="hidden"
-    id="executionValue"
-    name="authenticationExecution"
-  />
-  <input
-    type="hidden"
-    id="isSetRetry"
-    name="isSetRetry"
-  />
-</form>
-<input
-  tabIndex="4"
-  type="button"
-  name="try-again"
-  id="kc-try-again"
-  [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-  [value]="i18n.msgStr('doTryAgain')"
-  (click)="onClick()"
-/>
-@if (isAppInitiatedAction) {
-  <form
-    id="kc-webauthn-settings-form"
-    method="post"
-    [action]="url.loginAction"
-    [kcClass]="'kcFormClass'"
-  >
-    <button
-      type="submit"
-      id="cancelWebAuthnAIA"
-      name="cancel-aia"
-      value="true"
-      [kcClass]="['kcButtonClass', 'kcButtonDefaultClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-    >
-      {{ i18n.msgStr('doCancel') }}
-    </button>
-  </form>
-}
+  <div id="kc-form-wrapper">
+    <div class="space-y-6">
+      <form
+        id="kc-error-credential-form"
+        method="post"
+        [action]="url.loginAction"
+        class="hidden"
+      >
+        <input
+          type="hidden"
+          id="executionValue"
+          name="authenticationExecution"
+        />
+        <input
+          type="hidden"
+          id="isSetRetry"
+          name="isSetRetry"
+        />
+      </form>
+
+      <div class="space-y-4">
+        <button
+          tabIndex="4"
+          type="button"
+          name="try-again"
+          id="kc-try-again"
+          matButton="filled"
+          class="w-full"
+          (click)="onClick()"
+        >
+          {{ i18n.msgStr('doTryAgain') }}
+        </button>
+
+        @if (isAppInitiatedAction) {
+          <form
+            id="kc-webauthn-settings-form"
+            method="post"
+            [action]="url.loginAction"
+          >
+            <button
+              type="submit"
+              id="cancelWebAuthnAIA"
+              name="cancel-aia"
+              value="true"
+              matButton="outlined"
+              class="w-full"
+            >
+              {{ i18n.msgStr('doCancel') }}
+            </button>
+          </form>
+        }
+      </div>
+    </div>
+  </div>
+</div>

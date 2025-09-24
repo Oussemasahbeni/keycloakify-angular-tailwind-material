@@ -1,41 +1,66 @@
 @let samlPost = kcContext.samlPost;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('saml.post-form.title') }}
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-lg font-bold">{{ i18n.msgStr('saml.post-form.title') }}</span>
+  </div>
 </ng-template>
-<p>{{ i18n.msgStr('saml.post-form.message') }}</p>
-<form
-  #setHtmlFormElement
-  name="saml-post-binding"
-  method="post"
-  [action]="samlPost.url"
+
+<div
+  id="kc-form"
+  class="mt-6"
 >
-  @if (!!samlPost.SAMLRequest) {
-    <input
-      type="hidden"
-      name="SAMLRequest"
-      [value]="samlPost.SAMLRequest"
-    />
-  }
-  @if (!!samlPost.SAMLResponse) {
-    <input
-      type="hidden"
-      name="SAMLResponse"
-      [value]="samlPost.SAMLResponse"
-    />
-  }
-  @if (!!samlPost.relayState) {
-    <input
-      type="hidden"
-      name="RelayState"
-      [value]="samlPost.relayState"
-    />
-  }
-  <noscript>
-    <p>{{ i18n.msgStr('saml.post-form.js-disabled') }}</p>
-    <input
-      type="submit"
-      [value]="i18n.msgStr('doContinue')"
-    />
-  </noscript>
-</form>
+  <div id="kc-form-wrapper">
+    <div class="space-y-6">
+      <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+        {{ i18n.msgStr('saml.post-form.message') }}
+      </p>
+
+      <form
+        #setHtmlFormElement
+        name="saml-post-binding"
+        method="post"
+        [action]="samlPost.url"
+      >
+        @if (!!samlPost.SAMLRequest) {
+          <input
+            type="hidden"
+            name="SAMLRequest"
+            [value]="samlPost.SAMLRequest"
+          />
+        }
+        @if (!!samlPost.SAMLResponse) {
+          <input
+            type="hidden"
+            name="SAMLResponse"
+            [value]="samlPost.SAMLResponse"
+          />
+        }
+        @if (!!samlPost.relayState) {
+          <input
+            type="hidden"
+            name="RelayState"
+            [value]="samlPost.relayState"
+          />
+        }
+
+        <noscript>
+          <div class="space-y-4">
+            <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+              <p class="text-sm text-amber-800 dark:text-amber-200">
+                {{ i18n.msgStr('saml.post-form.js-disabled') }}
+              </p>
+            </div>
+            <button
+              type="submit"
+              matButton="filled"
+              class="w-full"
+            >
+              {{ i18n.msgStr('doContinue') }}
+            </button>
+          </div>
+        </noscript>
+      </form>
+    </div>
+  </div>
+</div>

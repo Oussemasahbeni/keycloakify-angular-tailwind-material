@@ -3,47 +3,52 @@
 @let client = kcContext.client;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('logoutConfirmTitle') }}
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-lg font-bold">{{ i18n.msgStr('logoutConfirmTitle') }}</span>
+  </div>
 </ng-template>
+
 <div
-  id="kc-logout-confirm"
-  class="content-area"
+  id="kc-form"
+  class="mt-6"
 >
-  <p class="instruction">{{ i18n.msgStr('logoutConfirmHeader') }}</p>
-  <form
-    class="form-actions"
-    method="POST"
-    [action]="url.logoutConfirmAction"
-  >
-    <input
-      type="hidden"
-      name="session_code"
-      [value]="logoutConfirm.code"
-    />
-    <div [kcClass]="'kcFormGroupClass'">
-      <div id="kc-form-options">
-        <div [kcClass]="'kcFormOptionsWrapperClass'"></div>
-      </div>
-      <div
-        id="kc-form-buttons"
-        class="kcFormGroupClass"
+  <div id="kc-form-wrapper">
+    <div class="space-y-6">
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        {{ i18n.msgStr('logoutConfirmHeader') }}
+      </p>
+
+      <form
+        method="POST"
+        [action]="url.logoutConfirmAction"
+        class="space-y-4"
       >
         <input
+          type="hidden"
+          name="session_code"
+          [value]="logoutConfirm.code"
+        />
+
+        <button
           tabIndex="4"
           name="confirmLogout"
           id="kc-logout"
           type="submit"
-          [kcClass]="['kcButtonClass', 'kcButtonPrimaryClass', 'kcButtonBlockClass', 'kcButtonLargeClass']"
-          [value]="i18n.msgStr('doLogout')"
-        />
-      </div>
+          matButton="filled"
+          class="w-full"
+        >
+          {{ i18n.msgStr('doLogout') }}
+        </button>
+      </form>
+
+      @if (!logoutConfirm.skipLink && client.baseUrl) {
+        <a
+          [href]="client.baseUrl"
+          class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 underline"
+        >
+          <span [innerHTML]="i18n.msgStr('backToApplication') | kcSanitize: 'html'"></span>
+        </a>
+      }
     </div>
-  </form>
-  <div id="kc-info-message">
-    @if (!logoutConfirm.skipLink && client.baseUrl) {
-      <p>
-        <a [href]="client.baseUrl">{{ i18n.msgStr('backToApplication') }}</a>
-      </p>
-    }
   </div>
 </div>

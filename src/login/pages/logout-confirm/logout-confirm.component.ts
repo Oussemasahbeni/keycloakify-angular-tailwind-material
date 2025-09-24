@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, forwardRef, inject, type TemplateRef, viewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
-import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
-import type { I18n } from '../../i18n';
-import type { KcContext } from '../../KcContext';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
+import type { I18n } from '../../i18n';
+import type { KcContext } from '../../KcContext';
+import { KcSanitizePipe } from '@keycloakify/angular/lib/pipes/kc-sanitize';
 
 @Component({
-  imports: [KcClassDirective],
+  imports: [MatButtonModule, KcSanitizePipe],
   selector: 'kc-logout-confirm',
   templateUrl: 'logout-confirm.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

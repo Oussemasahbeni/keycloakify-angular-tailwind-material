@@ -1,17 +1,17 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, forwardRef, inject, type TemplateRef, viewChild } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { USE_DEFAULT_CSS } from '@keycloakify/angular/lib/tokens/use-default-css';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
 import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
-import type { I18n } from '../../i18n';
-import type { KcContext } from '../../KcContext';
 import { LOGIN_CLASSES } from '@keycloakify/angular/login/tokens/classes';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import type { ClassKey } from 'keycloakify/login/lib/kcClsx';
+import type { I18n } from '../../i18n';
+import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, NgClass],
+  imports: [MatIconModule, KcClassDirective],
   selector: 'kc-select-authenticator',
   templateUrl: 'select-authenticator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

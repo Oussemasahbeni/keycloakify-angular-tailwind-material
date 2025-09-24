@@ -2,39 +2,74 @@
 @let auth = kcContext.auth;
 
 <ng-template #headerNode>
-  {{ i18n.msgStr('loginChooseAuthenticator') }}
+  <div class="leading-tight tracking-tight flex flex-col mb-2">
+    <span class="text-2xl font-bold">{{ i18n.msgStr('loginChooseAuthenticator') }}</span>
+  </div>
 </ng-template>
 
-<form
-  id="kc-select-credential-form"
-  method="post"
-  [kcClass]="'kcFormClass'"
-  [action]="url.loginAction"
+<div
+  id="kc-form"
+  class="mt-6"
 >
-  <div [kcClass]="'kcSelectAuthListClass'">
-    @for (authenticationSelection of auth.authenticationSelections; track authenticationSelection; let i = $index) {
-      <button
-        type="submit"
-        name="authenticationExecution"
-        [kcClass]="'kcSelectAuthListItemClass'"
-        [value]="authenticationSelection.authExecId"
-      >
-        <div [kcClass]="'kcSelectAuthListItemIconClass'">
-          <i [kcClass]="['kcSelectAuthListItemIconPropertyClass', $any(authenticationSelection.iconCssClass)]"></i>
-        </div>
-        <div [kcClass]="'kcSelectAuthListItemBodyClass'">
-          <div [kcClass]="'kcSelectAuthListItemHeadingClass'">
-            {{ i18n.advancedMsgStr(authenticationSelection.displayName) }}
+  <div id="kc-form-wrapper">
+    <form
+      id="kc-select-credential-form"
+      method="post"
+      [action]="url.loginAction"
+      class="space-y-4"
+    >
+      @for (authenticationSelection of auth.authenticationSelections; track authenticationSelection; let i = $index) {
+        <button
+          type="submit"
+          name="authenticationExecution"
+          [value]="authenticationSelection.authExecId"
+          class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        >
+          <div class="flex items-center space-x-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                @switch (authenticationSelection.iconCssClass) {
+                  @case ('kcAuthenticatorPasswordClass') {
+                    <mat-icon>key</mat-icon>
+                  }
+                  @case ('kcAuthenticatorWebAuthnPasswordlessClass') {
+                    <mat-icon>fingerprint</mat-icon>
+                  }
+                  @case ('kcAuthenticatorDefaultClass') {
+                    <mat-icon>security</mat-icon>
+                  }
+                  @default {
+                    <mat-icon>key</mat-icon>
+                  }
+                }
+              </div>
+            </div>
+            <div class="flex-1 text-left">
+              <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {{ i18n.advancedMsgStr(authenticationSelection.displayName) }}
+              </div>
+              <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                {{ i18n.advancedMsgStr(authenticationSelection.helpText) }}
+              </div>
+            </div>
+            <div class="flex-shrink-0">
+              <svg
+                class="w-5 h-5 text-gray-400 dark:text-gray-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
           </div>
-          <div [kcClass]="'kcSelectAuthListItemDescriptionClass'">
-            {{ i18n.advancedMsgStr(authenticationSelection.helpText) }}
-          </div>
-        </div>
-        <div [kcClass]="'kcSelectAuthListItemFillClass'"></div>
-        <div [kcClass]="'kcSelectAuthListItemArrowClass'">
-          <i [kcClass]="'kcSelectAuthListItemArrowIconClass'"></i>
-        </div>
-      </button>
-    }
+        </button>
+      }
+    </form>
   </div>
-</form>
+</div>
