@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, forwardRef, inject, type TemplateRe
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { KcSanitizePipe } from '@keycloakify/angular/lib/pipes/kc-sanitize';
 import { USE_DEFAULT_CSS } from '@keycloakify/angular/lib/tokens/use-default-css';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
 import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
@@ -14,7 +13,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, KcSanitizePipe, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [KcClassDirective, MatFormFieldModule, MatInputModule, MatButtonModule],
   selector: 'kc-login-reset-password',
   templateUrl: 'login-reset-password.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

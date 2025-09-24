@@ -9,7 +9,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, MatCardModule, MatIconModule],
+  imports: [MatCardModule, MatIconModule],
   selector: 'kc-login-idp-link-email',
   templateUrl: 'login-idp-link-email.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

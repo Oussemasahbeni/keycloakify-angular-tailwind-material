@@ -10,7 +10,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, MatButtonModule, MatCardModule, MatIconModule],
+  imports: [MatButtonModule, MatCardModule, MatIconModule],
   selector: 'kc-login-idp-link-confirm',
   templateUrl: 'login-idp-link-confirm.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

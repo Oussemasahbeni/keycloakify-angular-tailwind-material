@@ -11,7 +11,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [MatIconModule, KcClassDirective],
+  imports: [MatIconModule],
   selector: 'kc-select-authenticator',
   templateUrl: 'select-authenticator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

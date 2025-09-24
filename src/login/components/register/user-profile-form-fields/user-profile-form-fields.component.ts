@@ -12,7 +12,6 @@ import type { ClassKey } from 'keycloakify/login/lib/kcClsx';
 import { map } from 'rxjs';
 import type { I18n } from '../../../i18n';
 import type { KcContext } from '../../../KcContext';
-import { FieldErrorsComponent } from '../field-errors/field-errors.component';
 import { GroupLabelComponent } from '../group-label/group-label.component';
 import { InputFieldByTypeComponent } from '../input-field-by-type/input-field-by-type.component';
 
@@ -24,14 +23,7 @@ import { InputFieldByTypeComponent } from '../input-field-by-type/input-field-by
       }
     `,
   ],
-  imports: [
-    KcClassDirective,
-    FieldErrorsComponent,
-    InputFieldByTypeComponent,
-    GroupLabelComponent,
-    NgTemplateOutlet,
-    AsyncPipe,
-  ],
+  imports: [KcClassDirective, InputFieldByTypeComponent, GroupLabelComponent, NgTemplateOutlet, AsyncPipe],
   selector: 'kc-user-profile-form-fields',
   templateUrl: 'user-profile-form-fields.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

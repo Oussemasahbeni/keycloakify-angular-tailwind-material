@@ -1,0 +1,15 @@
+/* @import '@keycloakify/angular-email/tailwindcss-preset-email'; */
+
+@theme {
+  --font-default:
+    '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue',
+    sans-serif;
+}
+
+html {
+  @apply font-default;
+}
+
+h1 {
+  @apply !text-black;
+}

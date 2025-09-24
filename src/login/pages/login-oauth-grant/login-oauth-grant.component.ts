@@ -11,7 +11,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, MatButtonModule, MatCardModule, MatIconModule, MatListModule],
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatListModule],
   selector: 'kc-login-oauth-grant',
   templateUrl: 'login-oauth-grant.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

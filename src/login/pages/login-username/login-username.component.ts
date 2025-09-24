@@ -30,9 +30,7 @@ import type { KcContext } from '../../KcContext';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     KcClassDirective,
-    AsyncPipe,
     KcSanitizePipe,
-    NgClass,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

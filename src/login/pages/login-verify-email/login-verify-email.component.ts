@@ -10,7 +10,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective],
+  imports: [],
   selector: 'kc-login-verify-email',
   templateUrl: 'login-verify-email.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

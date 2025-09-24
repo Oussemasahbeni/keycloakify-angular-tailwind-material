@@ -32,7 +32,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'light'"
       >
         <mat-icon>light_mode</mat-icon>
-        <span>{{ i18n.msgStr('light') }}</span>
+        <!-- <span>{{ i18n.msgStr('light') }}</span> -->
       </button>
       <button
         mat-menu-item
@@ -40,7 +40,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'dark'"
       >
         <mat-icon>dark_mode</mat-icon>
-        <span>{{ i18n.msgStr('dark') }}</span>
+        <!-- <span>{{ i18n.msgStr('dark') }}</span> -->
       </button>
       <button
         mat-menu-item
@@ -48,7 +48,7 @@ import { Theme, ThemeService } from './theme.service';
         [class.active]="themeService.theme() === 'system'"
       >
         <mat-icon>settings_suggest</mat-icon>
-        <span>{{ i18n.msgStr('system') }}</span>
+        <!-- <span>{{ i18n.msgStr('system') }}</span> -->
       </button>
     </mat-menu>
   `,

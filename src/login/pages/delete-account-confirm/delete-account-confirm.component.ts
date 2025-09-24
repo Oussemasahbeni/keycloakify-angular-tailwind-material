@@ -14,7 +14,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, KcSanitizePipe, AlertComponent, MatButtonModule, MatIconModule],
+  imports: [KcSanitizePipe, AlertComponent, MatButtonModule, MatIconModule],
   selector: 'kc-delete-account-confirm',
   templateUrl: 'delete-account-confirm.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -31,9 +31,7 @@ import type { KcContext } from '../../KcContext';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     KcClassDirective,
-    AsyncPipe,
     KcSanitizePipe,
-    PasswordWrapperComponent,
     NgClass,
     CommonModule,
     MatButtonModule,

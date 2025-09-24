@@ -13,20 +13,11 @@ import { LOGIN_CLASSES } from '@keycloakify/angular/login/tokens/classes';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import { type ClassKey, getKcClsx } from 'keycloakify/login/lib/kcClsx';
-import { LogoutOtherSessionsComponent } from '../../components/logout-other-sessions/logout-other-sessions.component';
 import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [
-    KcClassDirective,
-    LogoutOtherSessionsComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    DatePipe,
-    MatChipsModule,
-  ],
+  imports: [KcClassDirective, MatButtonModule, MatIconModule, MatCardModule, DatePipe, MatChipsModule],
   selector: 'kc-webauthn-authenticate',
   templateUrl: 'webauthn-authenticate.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

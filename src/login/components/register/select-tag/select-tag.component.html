@@ -13,7 +13,6 @@
     </mat-label>
     <mat-select
       [id]="attr.name"
-      [name]="attr.name"
       [value]="valueOrValues()"
       [attr.aria-invalid]="!!displayableErrors()?.length"
       [disabled]="attr.readOnly"
@@ -53,7 +52,7 @@
     <input
       type="hidden"
       [name]="attr.name"
-      [value]="valueOrValues"
+      [value]="valueOrValues()"
     />
   </mat-form-field>
 }

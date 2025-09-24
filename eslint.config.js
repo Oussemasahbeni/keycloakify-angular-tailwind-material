@@ -5,13 +5,12 @@ import angular from 'angular-eslint';
 import prettier from 'eslint-plugin-prettier';
 import storybook from 'eslint-plugin-storybook';
 
-
 export default tseslint.config(
   {
     files: ['*.stories.@(ts|tsx|js|jsx|mjs|cjs)', '*.story.@(ts|tsx|js|jsx|mjs|cjs)'],
     plugins: {
       prettier,
-      storybook
+      storybook,
     },
     rules: {
       'import/no-anonymous-default-export': 'off',
@@ -23,7 +22,12 @@ export default tseslint.config(
     plugins: {
       prettier,
     },
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic, ...angular.configs.tsRecommended],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+    ],
     processor: angular.processInlineTemplates,
     rules: {
       '@typescript-eslint/consistent-type-definitions': 'off',

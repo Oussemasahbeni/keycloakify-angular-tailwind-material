@@ -12,7 +12,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { KcSanitizePipe } from '@keycloakify/angular/lib/pipes/kc-sanitize';
 import { USE_DEFAULT_CSS } from '@keycloakify/angular/lib/tokens/use-default-css';
 import { ComponentReference } from '@keycloakify/angular/login/classes/component-reference';
 import { KcClassDirective } from '@keycloakify/angular/login/directives/kc-class';
@@ -20,21 +19,11 @@ import { LOGIN_CLASSES } from '@keycloakify/angular/login/tokens/classes';
 import { LOGIN_I18N } from '@keycloakify/angular/login/tokens/i18n';
 import { KC_LOGIN_CONTEXT } from '@keycloakify/angular/login/tokens/kc-context';
 import type { ClassKey } from 'keycloakify/login/lib/kcClsx';
-import { PasswordWrapperComponent } from '../../components/password-wrapper/password-wrapper.component';
 import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [
-    KcClassDirective,
-    PasswordWrapperComponent,
-    KcSanitizePipe,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-  ],
+  imports: [KcClassDirective, MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatIconModule],
   selector: 'kc-login-password',
   templateUrl: 'login-password.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -27,7 +27,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, NgComponentOutlet, MatButtonModule, MatFormFieldModule, MatIconModule],
+  imports: [NgComponentOutlet, MatButtonModule, MatFormFieldModule, MatIconModule],
   selector: 'kc-idp-review-user-profile',
   templateUrl: 'idp-review-user-profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

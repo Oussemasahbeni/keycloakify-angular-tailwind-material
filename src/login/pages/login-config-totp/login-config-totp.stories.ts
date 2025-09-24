@@ -30,7 +30,7 @@ export const WithError: Story = {
         get: (fieldName: string) => (fieldName === 'totp' ? 'Invalid TOTP' : undefined),
         exists: (fieldName: string) => fieldName === 'totp',
         existsError: (fieldName: string) => fieldName === 'totp',
-        printIfExists: <T,>(fieldName: string, x: T) => (fieldName === 'totp' ? x : undefined),
+        printIfExists: <T>(fieldName: string, x: T) => (fieldName === 'totp' ? x : undefined),
       },
     },
   },

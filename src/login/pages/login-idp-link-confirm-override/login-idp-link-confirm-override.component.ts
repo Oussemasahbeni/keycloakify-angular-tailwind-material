@@ -8,7 +8,7 @@ import type { I18n } from '../../i18n';
 import type { KcContext } from '../../KcContext';
 
 @Component({
-  imports: [KcClassDirective, MatButtonModule],
+  imports: [MatButtonModule],
   selector: 'kc-login-idp-link-confirm-override',
   templateUrl: 'login-idp-link-confirm-override.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
